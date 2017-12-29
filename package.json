@@ -5,6 +5,7 @@
   "dependencies": {
     "antd-mobile": "^2.1.2",
     "autoprefixer": "7.1.6",
+    "axios": "^0.17.1",
     "babel-core": "6.26.0",
     "babel-eslint": "7.2.3",
     "babel-jest": "20.0.3",
@@ -102,5 +103,14 @@
     "node-sass": "^4.7.2",
     "prop-types": "^15.6.0",
     "sass-loader": "^6.0.6"
+  },
+  "proxy": {
+    "/api/": {
+      "target": "https://m.tking.cn/",
+      "changeOrigin": true,
+      "pathRewrite": {
+        "/api": ""
+      }
+    }
   }
 }
