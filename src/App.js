@@ -17,6 +17,17 @@ class App extends Component {
     }).catch(function(err){
         console.log(err)
     })
+
+    axios({
+        method: 'get',
+        url: '/api/showapi/site_city?src=m_web&time=1514532597884'
+    }).then(function(response){
+       console.log(response)
+    }).catch(function(err){
+        console.log(err)
+    })
+
+    
   }
   render() {
     return (
