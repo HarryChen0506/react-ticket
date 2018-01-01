@@ -1,0 +1,11 @@
+.dashboard {
+    display: flex;
+    height: 100%;
+    flex-direction: column;
+    .main {
+        flex:1
+    }
+    .am-tab-bar {
+        height: auto;
+    }
+}

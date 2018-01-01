@@ -5,6 +5,17 @@ import React, { Component } from 'react';
 import AppRoute from './router/router.js';
 
 class App extends Component { 
+  componentDidMount(){
+     this.remSize();
+     window.onresize = () => {
+        this.remSize();
+    }
+  }
+  remSize(){
+    //rem布局 html根size：375px下为10px
+      var html = document.querySelector('html');
+      html.style.fontSize = window.screen.width/37.5 + "px";  
+  }
   render() {
     return <AppRoute />
   }
