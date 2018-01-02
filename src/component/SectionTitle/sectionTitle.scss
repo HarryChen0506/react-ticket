@@ -1,0 +1,21 @@
+.section-title {   
+    font-size: 1.8rem;
+    color: #000;
+    text-align: center;
+    font-weight: 700;
+    padding: 0.5rem 0;
+    .title-container {
+        display: inline-block;
+        position: relative;
+        .icon-arrow-right {
+            position: absolute;
+            top: 0rem;
+            right: -2rem;
+            width: 1rem;
+            height: 1.8rem;
+            background-size: 0.8rem 1.6rem;
+            background-position: center;
+            background-repeat: no-repeat;
+        }
+    }
+}

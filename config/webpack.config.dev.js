@@ -94,6 +94,7 @@ module.exports = {
        http_service: path.join(__dirname, '../src/http_service'),
        utils:  path.join(__dirname, '../src/utils'),
        static:  path.join(__dirname, '../src/static'),
+       config: path.join(__dirname, '../src/config'),
     },
     plugins: [
       // Prevents users from importing files from outside of src/ (or node_modules/).

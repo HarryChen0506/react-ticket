@@ -1,0 +1,48 @@
+.top-banner {
+    position: relative;      
+    .bottom-cover {
+        position: absolute;
+        bottom: -15px;
+        border-top: 4rem transparent solid;
+    }
+    .bottom-cover.left {
+        left: 0;
+        border-left: 20rem #fff solid;
+    } 
+    .bottom-cover.right {
+        right: 0;
+        border-right: 20rem #fff solid;
+    }
+    .search-input {
+        position: absolute;
+        z-index: 100;
+        left: 50%;
+        bottom: -2rem;
+        border-radius: 4rem;
+        transform: translateX(-50%);        
+        width: 60%;
+        min-width: 22rem;
+        height: 4rem;
+        color: #fff;
+        background-color: #fff;
+        box-shadow: 0 1rem 1rem -5px rgba(253,104,87,.3);
+        .search-icon {
+            margin-top: .7rem;
+            margin-left: 2rem;
+            display: inline-block;
+            background-size: 14px;
+            width: 1.8rem;
+            height: 2.5rem;
+            background-repeat: no-repeat;
+            background-position: left center;
+        }
+        .search-placeholder {
+            position: absolute;
+            top: 1.25rem;
+            left: 4.0rem;
+            letter-spacing: 1px;
+            font-size: 1.4rem;           
+            color: #aaa;
+        }
+    }
+}
