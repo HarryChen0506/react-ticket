@@ -1,6 +1,6 @@
 // 主页轮播图
 import React from 'react';
-import { Link } from 'react-router-dom';
+// import { Link } from 'react-router-dom';
 import ReactSwipe from 'react-swipe';
 import './mainCarousel.scss';
 
@@ -9,16 +9,15 @@ class MainCarousel extends React.Component{
         super(...args);
         this.state = {
             index: 0
-        }
+        };       
     }
     componentDidMount(){
         // console.log('Category组件挂载');
-        // console.log(this.reactSwipe)
+        // console.log(this.reactSwipe)        
     }
     handleSlide(index, duration){
        this.reactSwipe.swipe.slide(index,duration)
-       console.log(index, duration)
-    }
+    }  
     render(){
         let options = {
             startSlide: 0,
@@ -28,7 +27,6 @@ class MainCarousel extends React.Component{
             disableScroll: false,
             stopPropagation: false,
             callback: (index, elem)=> {
-                // console.log(index);
                 this.setState({
                     index: index
                 })

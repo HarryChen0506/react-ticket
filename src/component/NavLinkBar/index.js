@@ -5,7 +5,7 @@ import { withRouter } from 'react-router-dom';
 import { TabBar } from 'antd-mobile';
 import { connect} from 'react-redux';
 
-// import 'antd-mobile/dist/antd-mobile.css';
+import './navLinkBar.scss';
 
 @withRouter
 class NavLinkBar extends React.Component{   
@@ -14,9 +14,9 @@ class NavLinkBar extends React.Component{
         const navList = this.props.dataList;
         const pathname = this.props.location.pathname;
         return(            
-            <TabBar
-                unselectedTintColor="#949494"
-                tintColor="#33A3F4"
+            <TabBar                
+                unselectedTintColor="#AAA"
+                tintColor="#FD6857"
                 barTintColor="white"
                 hidden={false}
             >                

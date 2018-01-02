@@ -3,13 +3,39 @@ import React from 'react'
 import { connect } from 'react-redux'
 import './topBanner.scss'
 import MainCarousel from 'component/MainCarousel'
+import httpService from 'http_service/service.js'
 class TopBanner extends React.Component{
+    constructor(...args){
+        super(...args)
+        this.state = {
+            categoryList: [{},{},{},{},{},{},{},{},{},{}]
+            // categoryList: []
+        }
+    }
+    componentDidMount(){
+        this.getCarouselBanner();
+    }
+    getCarouselBanner(){
+        const params = {
+           siteCityOID: '1001'
+        } 
+        httpService.main.getCarouselBanner(params).then((res)=>{
+            const list = res.data.result.data;
+            const categoryList = list.map((item)=>({
+                code: item.bannerOID,
+                img_url: item.posterUrl
+            }))
+            this.setState({
+                categoryList
+            })
+        },(err)=>{
+            alert(err)
+        })
+    }
     render(){
          return (
             <div>
-                <MainCarousel categoryList={[{code:'5a4610c5e4b05e3f4437e374', img_url:'https://img0.tking.cn/assets/img/4BpNaXcWWA.jpg'},
-                    {code:'5a4610c5e4b05e3f4437e374',img_url:'https://img1.tking.cn/assets/img/emDNCT2phy.jpg'},
-                    {code:'123',img_url:'https://img0.tking.cn/assets/img/7eMRedRKKX.jpg'}]}/>
+                <MainCarousel categoryList={this.state.categoryList}/>          
             </div>
         )
     }   
