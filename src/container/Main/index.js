@@ -21,9 +21,9 @@ class Main extends React.Component{
                 <TopBanner /> 
                 <div style={{height: '25px', width: '100%', background: '#fff'}}></div>  
                 <Category categoryList = {this.state.categoryList}/>   
-                <div style={{padding: '0 4%'}}>                    
+                <div style={{padding: '0 4%',background: '#fff'}}>                    
                     <HotShow />
-                </div>              
+                </div>                         
                
             </div>
         )

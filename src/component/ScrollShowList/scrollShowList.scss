@@ -1,7 +1,15 @@
 .scroll-show-list {
-    height: 21rem;
     padding-top: 1rem;
+    overflow: scroll;
     overflow-y: hidden;
-    overflow-x: hidden;
-    margin-right: -4%;
+    // overflow-x: hidden;
+    margin-right: -4%;    
+    .list-container{  
+        display: flex;       
+        flex: 1;
+        flex-wrap: nowrap;
+    }
+}
+.scroll-show-list::-webkit-scrollbar {
+    display: none;
 }

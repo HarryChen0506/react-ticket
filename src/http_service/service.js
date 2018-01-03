@@ -48,6 +48,12 @@ const main = {
         const api = '/api/prodapi/pub/site/1001/banner/app'
         const url = getUrl(api,params)
         return http.httpGet(url)
+    },
+    getMarketingShows: function(params){
+        // https://m.tking.cn/prodapi/pub/site/1001/topMarketingShows?src=weixin&time=1514961606452&siteCityOID=1001
+        const api = '/api/prodapi/pub/site/1001/topMarketingShows'
+        const url = getUrl(api,params)
+        return http.httpGet(url)
     }
 }
 const user = {

@@ -39,7 +39,7 @@ class TopBanner extends React.Component{
                 <div className="bottom-cover left"></div>       
                 <div className="bottom-cover right"></div>     
                 <div className="search-input"> 
-                    <div className="search-icon" style={{backgroundImage: `url(${require('static/images/search-icon.png')})`}}></div> 
+                    <div className="search-icon" style={{backgroundImage: `url(${require('./images/search-icon.png')})`}}></div> 
                     <div className="search-placeholder ng-binding">共有3434场折扣演出在售</div>
                 </div>  
             </div>
