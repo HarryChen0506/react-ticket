@@ -4,38 +4,29 @@ import { connect } from 'react-redux'
 import './topBanner.scss'
 import MainCarousel from 'component/MainCarousel'
 import httpService from 'http_service/service.js'
-class TopBanner extends React.Component{
-    constructor(...args){
-        super(...args)
-        this.state = {
-            categoryList: [{},{},{},{},{},{},{},{},{},{}]
-            // categoryList: []
-        }
+
+@connect(
+    state=>state,
+    null
+)
+class TopBanner extends React.Component{    
+    getCarouselBanner(list=[]){
+        const showList = list.map((item)=>({
+            code: item.bannerOID,
+            img_url: item.posterUrl
+        }))
+        if(showList.length>0){
+            return showList
+        }else {
+            return [{},{},{},{},{},{},{},{},{},{}]
+        }            
     }
-    componentDidMount(){
-        this.getCarouselBanner();
-    }
-    getCarouselBanner(){
-        const params = {
-           siteCityOID: '1001'
-        } 
-        httpService.main.getCarouselBanner(params).then((res)=>{
-            const list = res.data.result.data;
-            const categoryList = list.map((item)=>({
-                code: item.bannerOID,
-                img_url: item.posterUrl
-            }))
-            this.setState({
-                categoryList
-            })
-        },(err)=>{
-            alert(err)
-        })
-    }
-    render(){
+    render(){        
+         const categoryList = this.getCarouselBanner(this.props.show.bannerShow);
+        //  console.log('categoryList',categoryList)
          return (
             <div className="top-banner">
-                <MainCarousel categoryList={this.state.categoryList}/> 
+                <MainCarousel categoryList={categoryList}/>
                 <div className="bottom-cover left"></div>       
                 <div className="bottom-cover right"></div>     
                 <div className="search-input"> 

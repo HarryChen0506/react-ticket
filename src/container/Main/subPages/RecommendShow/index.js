@@ -26,7 +26,6 @@ class RecommendShow extends React.Component{
         // offset=0&length=10&src=weixin&time=1514975389512&siteCityOID=1001
         httpService.main.getRecommendShows(params).then((res)=>{
             const recommendShows = res.data.result.data;
-            console.log('data',recommendShows)
             this.setState({
                 showList: this.getRecommendShowList(recommendShows)
             })

@@ -1,0 +1,56 @@
+import httpService from 'http_service/service.js';
+//定义变量
+const SHOW_BANNER = 'SHOW_BANNER';  //banner演出
+const SHOW_HOT = 'SHOW_HOT';
+const SHOW_RECOMMEND = 'SHOW_RECOMMEND';
+const ERROR_MSG = 'ERROR_MSG';
+
+function bannerShow(data){   
+    return {
+        type: SHOW_BANNER,
+        payload: data
+    } 
+}
+
+export function errorMsg(data){
+    return {
+        type: ERROR_MSG,
+        payload: data
+    }
+}
+export function loadBannerShow(){
+    return (dispatch)=>{
+        const params = {
+           siteCityOID: '1001'
+        } 
+        httpService.main.getCarouselBanner(params).then((res)=>{
+            if(res.data.statusCode===200){
+                const list = res.data.result.data;
+                dispatch(bannerShow(list))               
+            }
+        },(err)=>{
+            dispatch(errorMsg({msg:err}))
+        }) 
+    }
+}
+
+const initState = {
+    bannerShow: [],
+    hotShow: [],
+    recommendShow: [],
+    msg: ''
+}
+export function show(state = initState, action){
+    switch(action.type){
+        case SHOW_BANNER:
+            return {...state, bannerShow: action.payload}
+        case SHOW_HOT:
+            return {...state, hotShow: action.payload} 
+        case SHOW_RECOMMEND:
+            return {...state, recommendShow: action.payload} 
+        case ERROR_MSG:
+            return {...state, ...action.payload}
+        default:
+            return state
+    }
+}

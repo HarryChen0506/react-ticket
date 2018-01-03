@@ -39,7 +39,7 @@ class Dashboard extends React.Component{
         }];        
         const title = navList.filter((v)=>v.path===pathname)[0] && navList.filter((v)=>v.path===pathname)[0].title;
         const filterList = navList;
-        console.log('测试dash',pathname)
+        // console.log('测试dash',pathname)
         return(
             <div className="dashboard">
                 <div className="main">
