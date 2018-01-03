@@ -1,0 +1,31 @@
+.section-logo {
+    text-align: center;
+    .title-wraper {
+        position: relative;
+        display: inline-block;
+        font-size: 1.2rem;
+        color: #aaa;
+        line-height: 4rem;
+        height: 4rem;        
+        .icon {
+            position: absolute;
+            top: 1.9rem;
+            display: inline-block;
+            width: 0.4rem;
+            height: 0.4rem;
+            background: #aaa; 
+            transform: rotateZ(45deg);
+            &.left{
+                left: 0
+            }
+            &.right{
+                right: 0
+            }
+        }
+        .title {
+            margin: 0 2rem;
+        }
+    }
+   
+
+}

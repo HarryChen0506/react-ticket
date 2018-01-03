@@ -54,7 +54,13 @@ const main = {
         const api = '/api/prodapi/pub/site/1001/topMarketingShows'
         const url = getUrl(api,params)
         return http.httpGet(url)
-    }
+    },
+    getRecommendShows: function(params){
+        // https://m.tking.cn/showapi/pub/site/1001/hot_show?&offset=0&length=10&src=weixin&time=1514975389512&siteCityOID=1001
+        const api = '/api/showapi/pub/site/1001/hot_show'
+        const url = getUrl(api,params)
+        return http.httpGet(url)
+    }    
 }
 const user = {
     info: function(params){

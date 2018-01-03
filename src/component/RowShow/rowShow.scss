@@ -1,0 +1,131 @@
+.row-show {
+    position: relative;    
+    width: 100%;
+    padding: 1.2rem 0;
+    overflow: hidden;
+    border-bottom: 1px solid #E4E4E4;
+    font-size: 1.2rem;
+    .left-column-wrapper {
+        width: 9rem;
+        float: left;
+        .image-contianer {
+            float: left;
+            position: relative;
+            height: 12rem;
+            width: 9rem;
+            img {
+                width: 100%;
+                height: 100%;
+                border-radius: .5rem;
+            }  
+            .discount {
+                position: absolute;
+                top: auto;
+                left: auto;
+                bottom: 1rem;
+                right: -2rem;
+                width: 4rem;
+                height: 4rem;               
+                padding-left: 0;
+                font-size: .8rem;
+                color: #fff;                
+                line-height: 1.2em;
+                transform: none;               
+                background: linear-gradient(-180deg,#EF6856 0,#FF3165 100%);
+                background-size: 56px 32px;
+                border-radius: 100%;
+                text-align: center;
+                .number {
+                    padding-top: 1.2rem;
+                    font-size: 1.4rem;
+                    font-weight: 700;
+                    padding-bottom: .2rem;
+                }
+            }          
+        }
+    }
+    .right-column-wrapper {
+        float: left;
+        width: 100%;
+        margin-right: -9rem;
+        .right-column {
+            margin-right: 9rem;
+            padding-left: 2.5rem;
+            .show-name {
+                display: -webkit-box;
+                height: 4rem;
+                line-height: 2rem;
+                color: #131313;
+                font-size: 1.4rem;
+                margin-bottom: .8rem;
+                overflow: hidden;
+                text-overflow: ellipsis;
+                -webkit-box-orient: vertical;
+                -webkit-line-clamp: 2;
+            }
+            .show-time {
+                margin-bottom: .4rem;
+                font-size: 1.2rem;
+                color: #95949d;
+                line-height: 1.5rem;                
+            }
+            .show-avenue {
+                height: 3.7rem;
+                font-size: 1.2rem;
+                color: #AAA;
+                white-space: nowrap;
+                text-overflow: ellipsis;
+                overflow: hidden;
+            }
+            .other-detail {
+                width: 100%;
+                overflow: hidden;
+                .left-part {
+                    float: left;
+                }
+                .right-part {
+                    float: right;
+                }
+            }
+            .show-advertise {
+                margin-top: 0.6rem;
+                font-size: 1.2rem;
+                color: #95949d;
+                line-height: 1.5rem;  
+            }
+        }
+    }
+    .tag {
+        width: 4.5rem;
+        height: 1.6rem;
+        text-align: center;
+        border-radius: 4px;
+        font-size: 10px;
+        float: left;
+        margin-right: .5rem;
+        line-height: 1.6rem;
+        box-sizing: border-box;
+        &.sell {
+            color: #FD6857;
+            border: 1px solid #FD6857;
+        }
+        &.presell {
+            color: #FF8E00;
+            border: 1px solid #FF8E00;
+        }
+        &.vr {
+            color: #fff;
+            background: linear-gradient(#4bdffc 0,#397ee6 100%);
+        }
+    }
+    .price {
+        height: 2rem;
+        line-height: 2rem;
+        font-size: 1.2rem;
+        color: #F2593F;
+        .number {
+            font-size: 1.8rem;
+            padding-right: .2rem;
+        }
+    }
+}

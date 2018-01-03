@@ -6,6 +6,7 @@ import config from 'config'
 import TopBanner from './subPages/TopBanner'
 import Category from './subPages/Category'
 import HotShow from './subPages/HotShow'
+import RecommendShow from './subPages/RecommendShow'
 
 class Main extends React.Component{
     constructor(...args){
@@ -23,6 +24,7 @@ class Main extends React.Component{
                 <Category categoryList = {this.state.categoryList}/>   
                 <div style={{padding: '0 4%',background: '#fff'}}>                    
                     <HotShow />
+                    <RecommendShow />
                 </div>                         
                
             </div>

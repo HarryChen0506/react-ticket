@@ -33,7 +33,7 @@ class ScrollShowList extends React.Component{
             showName: item.showName,
             showTime: item.firstShowTime,
             showOID: item.showOID,
-            number: (item.discount*10).toString().slice(0,3),
+            number: (item.discount*10).toFixed(1),
             imgUrl: item.posterURL,
             text: '折'
         }))
@@ -50,10 +50,7 @@ class ScrollShowList extends React.Component{
                             style={{marginRight: "1rem"}}
                             onClick={(_el)=>{console.log(_el)}}
                        />
-                     ))}                             
-                      
-
-
+                     ))}
                  </div>
              </div>
          )
