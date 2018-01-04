@@ -1,6 +1,6 @@
 // 主页精选页面
 import React from 'react'
-import { connect } from 'react-redux'
+// import { connect } from 'react-redux'
 import config from 'config'
 
 import TopBanner from './subPages/TopBanner'
@@ -15,7 +15,6 @@ class Main extends React.Component{
             categoryList: config.categoryList
         }
     }
-
     render(){        
          return (
             <div>

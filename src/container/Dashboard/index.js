@@ -1,7 +1,7 @@
 //面板页面
 import React from 'react';
 import { NavBar } from 'antd-mobile';
-import { connect } from 'react-redux';
+// import { connect } from 'react-redux';
 import { Route, Switch } from 'react-router-dom';
 import NavLinkBar from 'component/NavLinkBar';
 import './dashboard.scss'

@@ -11,6 +11,18 @@ function bannerShow(data){
         payload: data
     } 
 }
+function hotShow(data){   
+    return {
+        type: SHOW_HOT,
+        payload: data
+    } 
+}
+function recommendShow(data){   
+    return {
+        type: SHOW_RECOMMEND,
+        payload: data
+    } 
+}
 
 export function errorMsg(data){
     return {
@@ -27,6 +39,41 @@ export function loadBannerShow(){
             if(res.data.statusCode===200){
                 const list = res.data.result.data;
                 dispatch(bannerShow(list))               
+            }
+        },(err)=>{
+            dispatch(errorMsg({msg:err}))
+        }) 
+    }
+}
+export function loadHotShow(){
+    return (dispatch)=>{
+        const params = {
+            src: 'weixin',
+            siteCityOID: '1001'
+        } 
+        httpService.main.getMarketingShows(params).then((res)=>{
+            if(res.data.statusCode===200){
+                const data = res.data.result.data;
+                const recentShows = data.recentShows;
+                dispatch(hotShow(recentShows))               
+            }
+        },(err)=>{
+            dispatch(errorMsg({msg:err}))
+        }) 
+    }
+}
+export function loadRecommendShow(){
+    return (dispatch)=>{
+        const params = {
+            src: 'weixin',
+            siteCityOID: '1001',
+            offset: 0,
+            length: 10
+        } 
+        httpService.main.getRecommendShows(params).then((res)=>{
+            if(res.data.statusCode===200){
+                const recommendShows = res.data.result.data;
+                dispatch(recommendShow(recommendShows))               
             }
         },(err)=>{
             dispatch(errorMsg({msg:err}))
