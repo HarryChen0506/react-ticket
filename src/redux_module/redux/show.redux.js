@@ -1,9 +1,10 @@
 import httpService from 'http_service/service.js';
 //定义变量
 const SHOW_BANNER = 'SHOW_BANNER';  //banner演出
-const SHOW_HOT = 'SHOW_HOT';
-const SHOW_RECOMMEND = 'SHOW_RECOMMEND';
+const SHOW_HOT = 'SHOW_HOT';  //热门演出
+const SHOW_RECOMMEND = 'SHOW_RECOMMEND';  //推荐演出
 const ERROR_MSG = 'ERROR_MSG';
+const SHOW_CATEGORY = 'SHOW_CATEGORY'; //演出分类
 
 function bannerShow(data){   
     return {
@@ -23,7 +24,12 @@ function recommendShow(data){
         payload: data
     } 
 }
-
+export function categoryShow(data){
+    return {
+        type: SHOW_CATEGORY,
+        payload: data
+    } 
+}
 export function errorMsg(data){
     return {
         type: ERROR_MSG,
@@ -81,10 +87,12 @@ export function loadRecommendShow(){
     }
 }
 
+
 const initState = {
     bannerShow: [],
     hotShow: [],
     recommendShow: [],
+    category: {},
     msg: ''
 }
 export function show(state = initState, action){
@@ -95,6 +103,8 @@ export function show(state = initState, action){
             return {...state, hotShow: action.payload} 
         case SHOW_RECOMMEND:
             return {...state, recommendShow: action.payload} 
+        case SHOW_CATEGORY:
+            return {...state, category: action.payload} 
         case ERROR_MSG:
             return {...state, ...action.payload}
         default:

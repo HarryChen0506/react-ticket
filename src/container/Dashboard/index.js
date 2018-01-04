@@ -6,9 +6,10 @@ import { Route, Switch } from 'react-router-dom';
 import NavLinkBar from 'component/NavLinkBar';
 import './dashboard.scss'
 import Main from 'container/Main'
-function List(){
-    return <div>演出列表页</div>
-}
+import List from 'container/List'
+// function List(){
+//     return <div>演出列表页</div>
+// }
 // function Main(){
 //     return <div>精选页面</div>
 // }

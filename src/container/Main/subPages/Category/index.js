@@ -13,7 +13,7 @@ class Category extends React.Component{
                     hasLine={false}
                     columnNum = {data.length}
                     activeStyle={false}
-                    onClick={_el => console.log(_el)}
+                    onClick={ _el=>this.props.onPress&&this.props.onPress(_el)}
                />
             </div>
         )
