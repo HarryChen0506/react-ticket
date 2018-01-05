@@ -29,6 +29,13 @@ export function categoryShow(data){
         type: SHOW_CATEGORY,
         payload: data
     } 
+    // return (dispatch)=>{
+    //     dispatch({
+    //         type: SHOW_CATEGORY,
+    //         payload: data
+    //     });
+    //     next&&next()
+    // } 
 }
 export function errorMsg(data){
     return {

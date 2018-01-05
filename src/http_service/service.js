@@ -60,7 +60,14 @@ const main = {
         const api = '/api/showapi/pub/site/1001/hot_show'
         const url = getUrl(api,params)
         return http.httpGet(url)
-    }    
+    },
+    getListShows: function(params){
+        //https://m.tking.cn/showapi/pub/site/3101/active_show?offset=0&length=10&type=1&src=m_web&sorting=weight&seq=desc&client=piaodashi_weixin&time=1515133417052&locationCityOID=&siteCityOID=3101
+        const api = '/api/showapi/pub/site/1001/active_show'
+        const url = getUrl(api,params)
+        return http.httpGet(url)
+    }  
+
 }
 const user = {
     info: function(params){

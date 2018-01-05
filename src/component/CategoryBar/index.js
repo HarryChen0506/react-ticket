@@ -8,6 +8,10 @@ class CategoryBar extends React.Component{
     constructor(...args){
         super(...args);  
     }   
+    componentDidMount(){
+        // const category = this.props.category;       
+        // console.log('分类子组件',category) 
+    }
     calScrollValue(node){
         // console.log('node',node.getBoundingClientRect())
         const params = node.getBoundingClientRect();
