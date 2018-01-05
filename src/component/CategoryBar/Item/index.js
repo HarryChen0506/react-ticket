@@ -9,8 +9,12 @@ class Item extends React.Component{
          const options = this.props; 
          return (            
             <div 
+                ref={(_el) => { this.box = _el}}
                 className={'item '+ (options.selected?'active':'')}
-                onClick={()=>options.onPress&&options.onPress()}
+                onClick={()=>{
+                    options.onPress&&options.onPress(); 
+                    options.onScroll&&options.onScroll(this.box)
+                }}
             > 
                 <div>{options.title}</div>
             </div>                

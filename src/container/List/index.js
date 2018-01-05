@@ -25,7 +25,7 @@ class List extends React.Component{
                     categoryList = {this.state.categoryList} 
                     style={{height: '5rem'}}
                     category={category}
-                    onPress={(_el)=>{this.props.categoryShow(_el)}}
+                    onPress={(_el)=>{this.props.categoryShow(_el);console.log(_el)}}
                 />
             </div>
         )
