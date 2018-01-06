@@ -24,7 +24,7 @@ class NavLinkBar extends React.Component{
                 unselectedTintColor="#AAA"
                 tintColor="#FD6857"
                 barTintColor="white"
-                hidden={false}
+                hidden={false}           
             >                
             {navList.map((v)=>(
                 <Item                    
