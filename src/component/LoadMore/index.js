@@ -26,13 +26,14 @@ export default class LoadMore extends Component {
         let timeoutId;
         this.containerNode = this.props.containerNode||window;  //外面的容器
         this.handleScroll = function(){
+            console.log('isLoadingMore',isLoadingMore)
             if(isLoadingMore){
                 return 
             }
             if(timeoutId){
                 clearTimeout(timeoutId);
             }
-            timeoutId = setTimeout(callBack.bind(this), 100);
+            timeoutId = setTimeout(callBack.bind(this), 10);
         }
         function callBack(){
             const toTopDistance = wrapper.getBoundingClientRect().top; //元素距离浏览器视窗顶部距离    
@@ -45,11 +46,14 @@ export default class LoadMore extends Component {
                 // 证明 wrapper 已经被滚动到暴露在页面可视范围之内了
                this.loadMoreHandle()
             }
-        }        
+        }   
+        // console.log('this.containerNode',this.containerNode);
+        typeof this.containerNode.addEventListener ==='function'&&
         this.containerNode.addEventListener('scroll',this.handleScroll.bind(this));        
     }
     componentWillUnmount(){
         console.log('销毁组件')
+        typeof this.containerNode.removeEventListener ==='function'&&
         this.containerNode.removeEventListener("scroll", this.handleScroll.bind(this));
     }
     loadMoreHandle() {

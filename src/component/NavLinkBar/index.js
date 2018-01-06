@@ -3,11 +3,17 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { withRouter } from 'react-router-dom';
 import { TabBar } from 'antd-mobile';
-import { connect} from 'react-redux';
-
 import './navLinkBar.scss';
 
+
+import { connect } from 'react-redux'
+import { loadListShow } from 'redux_module/redux/show.redux.js';
+
 @withRouter
+@connect(
+    state=>state,
+    { loadListShow }
+)
 class NavLinkBar extends React.Component{   
     render(){
         const Item = TabBar.Item;
@@ -29,6 +35,9 @@ class NavLinkBar extends React.Component{
                     selected={pathname===v.path}
                     onPress={()=>{
                         this.props.history.push(v.path)
+                        if(v.path==='/list'){
+                             
+                        }                       
                     }}
                     data-seed="logId"
                 >

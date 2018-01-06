@@ -6,6 +6,7 @@ const SHOW_RECOMMEND = 'SHOW_RECOMMEND';  //推荐演出
 const ERROR_MSG = 'ERROR_MSG';
 const SHOW_CATEGORY = 'SHOW_CATEGORY'; //演出分类
 const SHOW_LIST = 'SHOW_LIST'; //演出列表
+const SHOW_DEMO = 'SHOW_DEMO'; //测试
 
 export function categoryShow(data){
     return {
@@ -16,6 +17,12 @@ export function categoryShow(data){
 export function errorMsg(data){
     return {
         type: ERROR_MSG,
+        payload: data
+    }
+}
+export function demoShow(data){
+    return {
+        type: SHOW_DEMO,
         payload: data
     }
 }
@@ -149,6 +156,7 @@ const initState = {
         scrollToTop: false
     },
     category: {},
+    demo: '',
     msg: ''
 }
 export function show(state = initState, action){
@@ -169,6 +177,8 @@ export function show(state = initState, action){
             }
             return {...state, listShow: {...state.listShow, ...action.payload}} 
         case ERROR_MSG:
+            return {...state, ...action.payload}
+        case SHOW_DEMO:
             return {...state, ...action.payload}
         default:
             return state

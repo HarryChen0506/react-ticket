@@ -5,6 +5,7 @@ import LoadMore from 'component/LoadMore'
 import NoticeTip from 'component/NoticeTip'
 import RowShowList from 'component/RowShowList'
 import httpService from 'http_service/service.js'
+import ListContainer from '../ListContainer'
 
 import { connect } from 'react-redux'
 import { categoryShow, loadListShow } from 'redux_module/redux/show.redux.js'
@@ -16,20 +17,14 @@ import './listShow.scss'
 )
 class ListShow extends React.Component{
     constructor(...args){
-        super(...args); 
-        this.state = { 
-            showList: [],
-            pagination: {},
-            page:0,
-            length:10,
-            isLoadingMore: false,
-            hasMore: true, //是否还有更多
-        }        
+        super(...args);               
     }
     componentDidMount(){
         // this.initLoadShow()
         // console.log('componentDidMount',this.props.show.category)
-       
+       this.setState({
+           show_container: 123
+       })
     }
     getRecommendShowList(list=[]){        
         return list.map((item)=>({
@@ -92,17 +87,24 @@ class ListShow extends React.Component{
         const shows = this.props.show.listShow.shows;
         const scrollToTop = this.props.show.listShow.scrollToTop;
         const hasMore = this.props.show.listShow.hasMore;
-        const isLoadingMore = this.props.show.listShow.isLoadingMore;
+        const isLoadingMore = this.props.show.listShow.isLoadingMore||false;
+        // const isLoadingMore = false;
         // console.log('scrollToTop',this.props.show.listShow.scrollToTop)
+        // console.log('isLoadingMore-组件容器',isLoadingMore)
+        // console.log('show_container-组件容器',this.show_container)
         if(scrollToTop){
             this.scrollToTop(this.show_container)
-        }
+        } 
         return (             
              <div 
                 className="show-container" 
                 style={{padding: '0 4%',background: '#fff'}}
-                ref={(_el)=>{this.show_container = _el }}
-             >
+                id="show_container"
+                ref={(_el)=>{
+                    {/*console.log('ref_el',_el)*/}
+                    this.show_container = _el;
+                }}
+             > 
                 <RowShowList 
                     showList={this.getRecommendShowList(shows)}
                     onClick={(_el)=>{console.log(_el)}}
@@ -114,6 +116,7 @@ class ListShow extends React.Component{
                     toLoadText={'加载更多...'}
                     loadMoreFn={()=>{this.loadMoreShow()}} toBottom="50" 
                 />:<NoticeTip content="拉到底了，老板请您别扯了..."/>} 
+                {/*<ListContainer />   */}
             </div>
            
         )
