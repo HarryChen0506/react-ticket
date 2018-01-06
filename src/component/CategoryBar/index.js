@@ -7,11 +7,7 @@ import Item from './Item';
 class CategoryBar extends React.Component{
     constructor(...args){
         super(...args);  
-    }   
-    componentDidMount(){
-        // const category = this.props.category;       
-        // console.log('分类子组件',category) 
-    }
+    } 
     calScrollValue(node){
         // console.log('node',node.getBoundingClientRect())
         const params = node.getBoundingClientRect();
@@ -51,20 +47,27 @@ class CategoryBar extends React.Component{
              if(step>0){
                 if(curDistance<=endDistance){
                     curDistance += step;                   
-                    node.scrollTo(curDistance,top)
+                    // node.scrollTo(curDistance,top)
+                    this.scrollTo(node, curDistance, top)
                 }else{
                     clearInterval(this.timeId)
                 }
              }else {
                  if(curDistance>=endDistance){
                      curDistance += step;
-                     node.scrollTo(curDistance,top)
+                    //  node.scrollTo(curDistance,top)
+                    this.scrollTo(node, curDistance, top)
                  }else{
                      clearInterval(this.timeId)
                  }                 
              }                       
          },time)
         //  node.scrollTo(endDistance,top) ;
+    }
+    scrollTo(node,curDistance,top ){
+        if(node&&typeof(node.scrollTo)==='function'){
+           node.scrollTo(curDistance,top) 
+        }
     }
     render(){      
         const categoryList = this.props.categoryList;  

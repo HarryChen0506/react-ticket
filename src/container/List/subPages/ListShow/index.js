@@ -2,16 +2,17 @@
 import React from 'react'
 import { Toast } from 'antd-mobile'
 import LoadMore from 'component/LoadMore'
+import NoticeTip from 'component/NoticeTip'
 import RowShowList from 'component/RowShowList'
 import httpService from 'http_service/service.js'
 
 import { connect } from 'react-redux'
-import { categoryShow } from 'redux_module/redux/show.redux.js'
+import { categoryShow, loadListShow } from 'redux_module/redux/show.redux.js'
 import './listShow.scss'
 
 @connect(
     state=>state,
-    { categoryShow }
+    { categoryShow, loadListShow }
 )
 class ListShow extends React.Component{
     constructor(...args){
@@ -22,68 +23,13 @@ class ListShow extends React.Component{
             page:0,
             length:10,
             isLoadingMore: false,
-            hasMore: true //是否还有更多
-        }
+            hasMore: true, //是否还有更多
+        }        
     }
-    componentDidMount(){  
-        
-        this.getListShows()
+    componentDidMount(){
+        // this.initLoadShow()
+        // console.log('componentDidMount',this.props.show.category)
        
-    }
-    getListShows(config){
-        // offset=0&length=10&type=1&src=m_web&sorting=weight&seq=desc&client=piaodashi_weixin&
-        // time=1515133417052&locationCityOID=&siteCityOID=3101
-        console.log('this',this.props.show.category)        
-        const type = this.props.show.category.code;
-        const page = this.state.page;
-        const length = this.state.length;
-        const offset = page*length;
-        const params = {
-            offset,
-            length,
-            type,
-            src: 'm_web',
-            sorting: 'weight',
-            seq: 'desc',
-            client: 'piaodashi_weixin',
-            siteCityOID: '1001'
-        }
-        Toast.loading('正在加载...', 0, () => {
-            // console.log('Load complete !!!');
-        });
-        httpService.main.getListShows(params).then((res)=>{
-            if(res.data.statusCode===200){                
-                this.dealShowDada(config, res)        
-                Toast.hide();
-            }else{
-                Toast.fail(res.data.comments||'加载失败!!!', 1);
-            }           
-        },(err)=>{
-            Toast.fail(err||'加载失败!!!', 1);
-        })
-    }
-    dealShowDada(config, res){
-        const page = this.state.page;
-        const length = this.state.length;
-        const showList = res.data.result.data;
-        const pagination = res.data.result.pagination;
-        if(!config||config.type==='new'){
-            this.setState({
-                showList: showList,
-                pagination: pagination,
-                hasMore: this.calHasMore({count:pagination.count, length, page})             
-            })
-        }else if(config.type==='add'){
-            this.setState({               
-                pagination: pagination,
-                hasMore: this.calHasMore({count:pagination.count, length, page})
-            })
-            if(showList&&showList.length>0){
-                this.setState({
-                    showList: this.state.showList.concat(showList)                      
-                })
-            }                   
-        }     
     }
     getRecommendShowList(list=[]){        
         return list.map((item)=>({
@@ -104,52 +50,74 @@ class ListShow extends React.Component{
     }
     scrollToTop(node){
         // console.log('node',node)
-        node&&node.scrollTo(0,0);
-    }
-    calHasMore({count,length,page}){
-        //计算是否还有更多
-        console.log(count, length, page)
-        return (count-length*page)>0
-    }
-    initLoadShow(){
-        this.setState({
-            page: 0
-        })
-        this.getListShows();
-        this.scrollToTop(this.show_container); //滚动到顶部
+        if(node && typeof(node.scrollTo)==='function'){
+            node.scrollTo(0,0)
+        }
     }
     loadMoreShow(){
-        console.log('loading..',this.state)
-        this.setState({
-            page: this.state.page+1
-        })
-        this.getListShows({type: 'add'})
+        console.log('loading..')  
+        const offset = this.props.show.listShow.offset;
+        const length = this.props.show.listShow.length;
+        const nextOffset = offset+length;
+        const type = this.props.show.category.code;
+        this.props.loadListShow({
+            src: 'm_web',
+            siteCityOID: '1001',
+            offset: nextOffset,
+            length: length,
+            type: type, 
+            sorting: 'weight',
+            seq:'desc',
+            client:'piaodashi_weixin'
+        },{
+            scrollToTop: false,
+            concat: true
+        },{
+            beforeSend(){
+                Toast.loading('正在加载...', 0, () => {});
+            },
+            success(res){
+                Toast.hide();
+            },
+            fail(res){
+                Toast.fail(res.data.comments||'加载失败!!!', 1);
+            },
+            error(err){
+                Toast.fail(err||'加载失败!!!', 1);
+            }
+        });       
     }
     render(){    
-        const category = this.props.category;    
-         return (
+        const category = this.props.category;
+        const shows = this.props.show.listShow.shows;
+        const scrollToTop = this.props.show.listShow.scrollToTop;
+        const hasMore = this.props.show.listShow.hasMore;
+        const isLoadingMore = this.props.show.listShow.isLoadingMore;
+        // console.log('scrollToTop',this.props.show.listShow.scrollToTop)
+        if(scrollToTop){
+            this.scrollToTop(this.show_container)
+        }
+        return (             
              <div 
                 className="show-container" 
                 style={{padding: '0 4%',background: '#fff'}}
                 ref={(_el)=>{this.show_container = _el }}
              >
                 <RowShowList 
-                    showList={this.getRecommendShowList(this.state.showList)}
+                    showList={this.getRecommendShowList(shows)}
                     onClick={(_el)=>{console.log(_el)}}
                 /> 
-                {this.show_container?<LoadMore 
+                {this.show_container&&hasMore?<LoadMore 
                     containerNode = {this.show_container}
-                    isLoadingMore={this.state.isLoadingMore} 
+                    isLoadingMore={isLoadingMore} 
                     loadingText={'轮轮正努力加载中...'}
                     toLoadText={'加载更多...'}
                     loadMoreFn={()=>{this.loadMoreShow()}} toBottom="50" 
-                />:null}             
-
-                 <div>{ category.code} </div>
-
+                />:<NoticeTip content="拉到底了，老板请您别扯了..."/>} 
             </div>
            
         )
     }   
 }
+ListShow.demo = '123'
 export default ListShow;

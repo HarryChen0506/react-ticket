@@ -16,6 +16,7 @@ class MainCarousel extends React.Component{
         // console.log(this.reactSwipe)        
     }
     handleSlide(index, duration){
+    //    console.log('reactSwipe', this.reactSwipe );
        this.reactSwipe.swipe.slide(index,duration)
     }  
     render(){

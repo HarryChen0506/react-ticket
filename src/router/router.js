@@ -4,7 +4,7 @@ import { BrowserRouter, Route, Switch} from 'react-router-dom';
 import Dashboard from 'container/Dashboard';
 
 import { connect } from 'react-redux';
-import { loadBannerShow, loadHotShow, loadRecommendShow, categoryShow } from 'redux_module/redux/show.redux.js';
+import { loadBannerShow, loadHotShow, loadRecommendShow, categoryShow, loadListShow } from 'redux_module/redux/show.redux.js';
 import config from 'config';
 function Login(){
     return <div>登录组件</div>
@@ -14,14 +14,23 @@ function Login(){
 // }
 @connect(
     state=>state,
-    { loadBannerShow, loadHotShow, loadRecommendShow, categoryShow }
+    { loadBannerShow, loadHotShow, loadRecommendShow, categoryShow, loadListShow }
 )
 class AppRoute extends React.Component{  
     componentDidMount(){        
         this.props.loadBannerShow();        
         this.props.loadHotShow();        
         this.props.loadRecommendShow();        
-        this.props.categoryShow(config.categoryList[0]);        
+        this.props.categoryShow(config.categoryList[0]);    
+        this.props.loadListShow({
+            src: 'm_web',
+            siteCityOID: '1001',
+            offset: 0,
+            length: 10,
+            sorting: 'weight',
+            seq:'desc',
+            client:'piaodashi_weixin'
+        },null,null);           
     }   
     render(){
         return(
