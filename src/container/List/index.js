@@ -23,6 +23,7 @@ class List extends React.Component{
   
     render(){   
         const category=this.props.show.category;
+        // console.log('category',category)
         return (
             <div className="list-page">               
                 <CategoryBar  
@@ -44,20 +45,16 @@ class List extends React.Component{
                             scrollToTop: true
                         },{
                             beforeSend(){
-                                console.log('发送！')
                                 Toast.loading('正在加载...', 0, () => {});
                             },
-                            success(res){
-                                console.log('成功！')
+                            success(res){                               
                                 Toast.hide();
                             },
-                            fail(res){
-                                console.log('失败')
+                            fail(res){                              
                                 Toast.fail(res.data.comments||'加载失败!!!', 1);
                             },
                             error(err){
-                                console.log('报错')
-                                Toast.fail(err||'加载失败!!!', 1);
+                                Toast.fail('加载失败!!!', 1);
                             }
                         });                                 
                     }}

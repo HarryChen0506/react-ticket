@@ -24,18 +24,20 @@ export default class LoadMore extends Component {
         )
     }
     componentDidMount(){
-        let wrapper = this.wrapper;    //加载条的容器 
-        let timeoutId;
+        let wrapper = this.wrapper;    //加载条的容器         
         this.containerNode = this.props.containerNode||this.wrapper.parentNode||window;  //外面的容器
-        this.handleScroll = function(){
-            // console.log('isLoadingMore-re',this.props.isLoadingMore )
-            if(this.props.isLoadingMore){
-                return 
-            }
-            if(timeoutId){
-                clearTimeout(timeoutId);
-            }
-            timeoutId = setTimeout(callBack.bind(this), 100);
+        this.throttle= (func, timer)=>{
+            let timeoutId = null;
+            return ()=>{       
+                // console.log('isLoadingMore-re',this.props.isLoadingMore)
+                if(this.props.isLoadingMore){
+                    return 
+                }        
+                if(timeoutId){
+                    clearTimeout(timeoutId);
+                }
+                timeoutId = setTimeout(func, timer);
+            }           
         }
         function callBack(){
             const toTopDistance = wrapper.getBoundingClientRect().top; //元素距离浏览器视窗顶部距离    
@@ -49,9 +51,9 @@ export default class LoadMore extends Component {
                this.loadMoreHandle()
             }
         }   
-        // console.log('this.containerNode',this.containerNode);
+        let throttleScroll = this.throttle(callBack.bind(this), 100)
         typeof this.containerNode.addEventListener ==='function'&&
-        this.containerNode.addEventListener('scroll',this.handleScroll.bind(this));        
+        this.containerNode.addEventListener('scroll',throttleScroll);        
     }
     componentWillUnmount(){
         // console.log('销毁组件')

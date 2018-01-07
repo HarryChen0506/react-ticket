@@ -27,7 +27,8 @@ class ListShow extends React.Component{
         // console.log('componentDidMount',this.props.show.category)
     }
     componentWillReceiveProps(nextProps) {
-        // console.log('componentWillReceiveProps', nextProps)
+        // console.log('componentWillReceiveProps', nextProps.show.listShow.scrollToTop)
+        //父组件发生render就会触发此函数（子组件的state改变不会触发）
          const scrollToTop = nextProps.show.listShow.scrollToTop;
          if(scrollToTop){
             this.scrollToTop(this.show_container)
@@ -95,7 +96,7 @@ class ListShow extends React.Component{
                  _this.setState({
                     isLoadingMore: false
                 })
-                Toast.fail(err||'加载失败!!!', 1);
+                Toast.fail('加载失败!!!', 1);
             }
         });       
     }
@@ -123,7 +124,7 @@ class ListShow extends React.Component{
                     loadMoreFn={()=>{
                         hasMore&&this.loadMoreShow&&this.loadMoreShow()
                     }} 
-                    toBottom="25" 
+                    toBottom="50" 
                     hasMore = {hasMore}
                     noMoreText = {'拉到底了，老板请您别扯了...'}
                 />
