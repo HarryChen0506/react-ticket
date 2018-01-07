@@ -25,7 +25,7 @@ class List extends React.Component{
         const category=this.props.show.category;
         // console.log('category',category)
         return (
-            <div className="list-page">               
+            <div className="list-page" style={{position: 'relative'}}>               
                 <CategoryBar  
                     categoryList = {this.state.categoryList} 
                     style={{height: '5rem'}}

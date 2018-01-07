@@ -3,9 +3,10 @@ import React from 'react'
 import { Toast } from 'antd-mobile'
 import LoadMore from 'component/LoadMore'
 import NoticeTip from 'component/NoticeTip'
+import ScrollTop from 'component/ScrollTop'
 import RowShowList from 'component/RowShowList'
 import httpService from 'http_service/service.js'
-import ListContainer from '../ListContainer'
+
 
 import { connect } from 'react-redux'
 import { categoryShow, loadListShow } from 'redux_module/redux/show.redux.js'
@@ -19,7 +20,8 @@ class ListShow extends React.Component{
     constructor(...args){
         super(...args);      
         this.state = {
-            isLoadingMore: false
+            isLoadingMore: false,
+            showScrollTop: false
         }         
     }
     componentDidMount(){
@@ -54,6 +56,18 @@ class ListShow extends React.Component{
     scrollToTop(node){
         if(node && typeof(node.scrollTo)==='function'){
             node.scrollTo(0,0)
+        }
+    }
+    calShowScrollTop(){
+        const distanceToTop = this.show_container&&this.show_container.scrollTop||0;
+        if(distanceToTop>700){
+            this.setState({
+                showScrollTop: true
+            })
+        }else{
+            this.setState({
+                showScrollTop: false
+            })
         }
     }
     loadMoreShow(){
@@ -111,6 +125,9 @@ class ListShow extends React.Component{
                 style={{padding: '0 4%',background: '#fff'}}
                 id="show_container"
                 ref={(_el)=>{this.show_container = _el}}
+                onScroll={()=>{
+                    this.calShowScrollTop()
+                }}
              > 
                 <RowShowList 
                     showList={this.getRecommendShowList(shows)}
@@ -128,6 +145,13 @@ class ListShow extends React.Component{
                     hasMore = {hasMore}
                     noMoreText = {'拉到底了，老板请您别扯了...'}
                 />
+                <ScrollTop 
+                    fadeIn={this.state.showScrollTop}
+                    style={{position:'absolute', right: '2rem', bottom: '2rem'}}
+                    onClick={()=>{
+                       this.scrollToTop(this.show_container)
+                    }}
+                />  
             </div>          
         )
     }   
