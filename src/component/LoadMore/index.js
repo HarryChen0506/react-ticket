@@ -8,6 +8,7 @@ export default class LoadMore extends Component {
         this.containerNode = null;
     }    
     render() {
+         console.log('组件加载了几次')
          const loadingText = this.props.loadingText||'加载中...';
          const toLoadText = this.props.toLoadText||'加载更多...';
         return (
@@ -24,18 +25,20 @@ export default class LoadMore extends Component {
         let wrapper = this.wrapper;    //加载条的容器    
         let isLoadingMore =  this.props.isLoadingMore;     //是否正在加载   
         let timeoutId;
-        this.containerNode = this.props.containerNode||window;  //外面的容器
+        // this.containerNode = this.props.containerNode||this.wrapper.parentNode||window;  //外面的容器
+        this.containerNode = this.wrapper.parentNode||window;  //外面的容器
         this.handleScroll = function(){
-            console.log('isLoadingMore',isLoadingMore)
+            console.log('isLoadingMore-is',isLoadingMore)
             if(isLoadingMore){
                 return 
             }
             if(timeoutId){
                 clearTimeout(timeoutId);
             }
-            timeoutId = setTimeout(callBack.bind(this), 10);
+            timeoutId = setTimeout(callBack.bind(this), 100);
         }
         function callBack(){
+           
             const toTopDistance = wrapper.getBoundingClientRect().top; //元素距离浏览器视窗顶部距离    
             // console.log('toTopDistance',toTopDistance)  
             const windowHeight = window.screen.height;  //浏览器视窗的高度
@@ -44,10 +47,15 @@ export default class LoadMore extends Component {
             // console.log('start',startDistance)
             if (toTopDistance && toTopDistance < startDistance) {
                 // 证明 wrapper 已经被滚动到暴露在页面可视范围之内了
+                console.log('执行')
                this.loadMoreHandle()
             }
         }   
         // console.log('this.containerNode',this.containerNode);
+        // console.log('解除',this.containerNode)
+        typeof this.containerNode.removeEventListener ==='function'&&
+        this.containerNode.removeEventListener("scroll", this.handleScroll.bind(this));
+        console.log('绑定')
         typeof this.containerNode.addEventListener ==='function'&&
         this.containerNode.addEventListener('scroll',this.handleScroll.bind(this));        
     }

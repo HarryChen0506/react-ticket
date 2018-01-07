@@ -17,14 +17,17 @@ import './listShow.scss'
 )
 class ListShow extends React.Component{
     constructor(...args){
-        super(...args);               
+        super(...args);  
+        this.state = {
+            isLoadingMoreNew: false
+        }             
     }
     componentDidMount(){
         // this.initLoadShow()
         // console.log('componentDidMount',this.props.show.category)
-       this.setState({
-           show_container: 123
-       })
+    //    this.setState({
+    //        show_container: 123
+    //    })
     }
     getRecommendShowList(list=[]){        
         return list.map((item)=>({
@@ -50,7 +53,12 @@ class ListShow extends React.Component{
         }
     }
     loadMoreShow(){
-        console.log('loading..')  
+        console.log('loading..下拉')
+        this.setState({
+           isLoadingMoreNew: true
+        })
+        
+        const _this = this;
         const offset = this.props.show.listShow.offset;
         const length = this.props.show.listShow.length;
         const nextOffset = offset+length;
@@ -73,12 +81,22 @@ class ListShow extends React.Component{
             },
             success(res){
                 Toast.hide();
+                _this.setState({
+                    isLoadingMoreNew: false
+                })
+                console.log('loading..success', _this.state.isLoadingMoreNew)
             },
             fail(res){
                 Toast.fail(res.data.comments||'加载失败!!!', 1);
+                 _this.setState({
+                    isLoadingMoreNew: false
+                })
             },
             error(err){
                 Toast.fail(err||'加载失败!!!', 1);
+                 _this.setState({
+                    isLoadingMoreNew: false
+                })
             }
         });       
     }
@@ -109,9 +127,9 @@ class ListShow extends React.Component{
                     showList={this.getRecommendShowList(shows)}
                     onClick={(_el)=>{console.log(_el)}}
                 /> 
-                {this.show_container&&hasMore?<LoadMore 
+                {hasMore?<LoadMore 
                     containerNode = {this.show_container}
-                    isLoadingMore={isLoadingMore} 
+                    isLoadingMore={this.state.isLoadingMoreNew} 
                     loadingText={'轮轮正努力加载中...'}
                     toLoadText={'加载更多...'}
                     loadMoreFn={()=>{this.loadMoreShow()}} toBottom="50" 
