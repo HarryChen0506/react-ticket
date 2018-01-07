@@ -10,30 +10,32 @@ export default class LoadMore extends Component {
     render() {
          const loadingText = this.props.loadingText||'加载中...';
          const toLoadText = this.props.toLoadText||'加载更多...';
+         const noMoreText = this.props.noMoreText||'没有更多了...';
+         const hasMore = this.props.hasMore;
+         const isLoadingMore =this.props.isLoadingMore
         return (
             <div className="load-more" ref={(wrapper)=>{this.wrapper = wrapper}}>
                 {
-                    this.props.isLoadingMore
-                    ? <span>{loadingText}</span>
-                    : <span onClick={this.loadMoreHandle.bind(this)}>{toLoadText}</span>
+                    hasMore?
+                    (isLoadingMore?<span>{loadingText}</span>:<span onClick={this.loadMoreHandle.bind(this)}>{toLoadText}</span>):
+                    (<span>{noMoreText}</span>)
                 }
             </div>
         )
     }
     componentDidMount(){
-        let wrapper = this.wrapper;    //加载条的容器    
-        let isLoadingMore =  this.props.isLoadingMore;     //是否正在加载   
+        let wrapper = this.wrapper;    //加载条的容器 
         let timeoutId;
-        this.containerNode = this.props.containerNode||window;  //外面的容器
+        this.containerNode = this.props.containerNode||this.wrapper.parentNode||window;  //外面的容器
         this.handleScroll = function(){
-            console.log('isLoadingMore',isLoadingMore)
-            if(isLoadingMore){
+            // console.log('isLoadingMore-re',this.props.isLoadingMore )
+            if(this.props.isLoadingMore){
                 return 
             }
             if(timeoutId){
                 clearTimeout(timeoutId);
             }
-            timeoutId = setTimeout(callBack.bind(this), 10);
+            timeoutId = setTimeout(callBack.bind(this), 100);
         }
         function callBack(){
             const toTopDistance = wrapper.getBoundingClientRect().top; //元素距离浏览器视窗顶部距离    
@@ -52,16 +54,15 @@ export default class LoadMore extends Component {
         this.containerNode.addEventListener('scroll',this.handleScroll.bind(this));        
     }
     componentWillUnmount(){
-        console.log('销毁组件')
+        // console.log('销毁组件')
         typeof this.containerNode.removeEventListener ==='function'&&
         this.containerNode.removeEventListener("scroll", this.handleScroll.bind(this));
     }
     loadMoreHandle() {
         // 执行传输过来的
-        this.props.loadMoreFn();
+         typeof this.props.loadMoreFn ==='function'&&this.props.loadMoreFn();
     }
 }
-
 LoadMore.defaultProps = {
     toBottom:　0
 }

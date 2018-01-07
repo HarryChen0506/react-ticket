@@ -106,36 +106,23 @@ function calHasMore({count,offset,length}){
     return (count-length-offset)>0
 }  
 export function loadListShow(params,config,callback){
-    return (dispatch)=>{
-        params.offset = params.offset||0;
-        params.length = params.length||10;
-        params.siteCityOID = params.siteCityOID||'1001';
-        params.src = params.src||'m_web';
-        params.sorting = params.sorting||'weight';
-        params.seq = params.seq||'desc';
-        params.client = params.client||'piaodashi_weixin';
-        //是否正在加载更多
-        dispatch(listShow({isLoadingMore: true}))
+    return (dispatch)=>{       
+        const { offset=0, length=10, siteCityOID='1001', src='m_web',sorting='weight', seq='desc', client='piaodashi_weixin', type } = params;
         callback&&typeof callback.beforeSend==='function'&&callback.beforeSend();
-        httpService.main.getListShows(params).then((res)=>{
-            dispatch(listShow({isLoadingMore: false})) 
+        httpService.main.getListShows({offset, length, siteCityOID, src, sorting, seq, client, type}).then((res)=>{
             if(res.data.statusCode===200){       
-                const result = res.data.result      
-                const pagination = result.pagination ||{}      
-                const shows = result.data||[];
-                const offset = pagination.offset||0;
-                const count = pagination.count||0;
-                const length = pagination.length||0;   
+                const result = res.data.result    
+                const shows = result.data||[]; 
+                const { offset=0, count=0, length=0} = result.pagination||{};
                 const hasMore = calHasMore({count,offset,length});
                 const scrollToTop = config&&config.scrollToTop || false;                         
-               dispatch(listShow({shows, offset, count, length, hasMore, scrollToTop},config))
+               dispatch(listShow({shows, offset, count, length, hasMore, scrollToTop}, config))
                callback&&typeof callback.success==='function'&&callback.success(res);              
             }else{                
                 callback&&typeof callback.fail==='function'&&callback.fail(res);
             }               
         },(err)=>{
             callback&&typeof callback.error==='function'&&callback.error(err);
-            dispatch(listShow({isLoadingMore: false}))   
         })
     }
 }
@@ -151,8 +138,7 @@ const initState = {
         length:0,
         offset:0,
         page:0,
-        hasMore: false,
-        isLoadingMore: false, //是否正在加载更多
+        hasMore: false,        
         scrollToTop: false
     },
     category: {},

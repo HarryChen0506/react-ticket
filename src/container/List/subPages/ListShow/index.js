@@ -17,14 +17,21 @@ import './listShow.scss'
 )
 class ListShow extends React.Component{
     constructor(...args){
-        super(...args);               
+        super(...args);      
+        this.state = {
+            isLoadingMore: false
+        }         
     }
     componentDidMount(){
         // this.initLoadShow()
         // console.log('componentDidMount',this.props.show.category)
-       this.setState({
-           show_container: 123
-       })
+    }
+    componentWillReceiveProps(nextProps) {
+        // console.log('componentWillReceiveProps', nextProps)
+         const scrollToTop = nextProps.show.listShow.scrollToTop;
+         if(scrollToTop){
+            this.scrollToTop(this.show_container)
+        } 
     }
     getRecommendShowList(list=[]){        
         return list.map((item)=>({
@@ -44,15 +51,13 @@ class ListShow extends React.Component{
         }))
     }
     scrollToTop(node){
-        // console.log('node',node)
         if(node && typeof(node.scrollTo)==='function'){
             node.scrollTo(0,0)
         }
     }
     loadMoreShow(){
-        console.log('loading..')  
-        const offset = this.props.show.listShow.offset;
-        const length = this.props.show.listShow.length;
+        const _this = this;
+        const {offset, length }= this.props.show.listShow;
         const nextOffset = offset+length;
         const type = this.props.show.category.code;
         this.props.loadListShow({
@@ -69,58 +74,61 @@ class ListShow extends React.Component{
             concat: true
         },{
             beforeSend(){
+                _this.setState({
+                    isLoadingMore: true
+                })
                 Toast.loading('正在加载...', 0, () => {});
             },
             success(res){
+                 _this.setState({
+                    isLoadingMore: false
+                })
                 Toast.hide();
             },
             fail(res){
+                 _this.setState({
+                    isLoadingMore: false
+                })
                 Toast.fail(res.data.comments||'加载失败!!!', 1);
             },
             error(err){
+                 _this.setState({
+                    isLoadingMore: false
+                })
                 Toast.fail(err||'加载失败!!!', 1);
             }
         });       
     }
     render(){    
         const category = this.props.category;
-        const shows = this.props.show.listShow.shows;
-        const scrollToTop = this.props.show.listShow.scrollToTop;
+        const shows = this.props.show.listShow.shows;       
         const hasMore = this.props.show.listShow.hasMore;
-        const isLoadingMore = this.props.show.listShow.isLoadingMore||false;
-        // const isLoadingMore = false;
-        // console.log('scrollToTop',this.props.show.listShow.scrollToTop)
-        // console.log('isLoadingMore-组件容器',isLoadingMore)
-        // console.log('show_container-组件容器',this.show_container)
-        if(scrollToTop){
-            this.scrollToTop(this.show_container)
-        } 
+        // const isLoadingMore = this.props.show.listShow.isLoadingMore||false;
         return (             
              <div 
                 className="show-container" 
                 style={{padding: '0 4%',background: '#fff'}}
                 id="show_container"
-                ref={(_el)=>{
-                    {/*console.log('ref_el',_el)*/}
-                    this.show_container = _el;
-                }}
+                ref={(_el)=>{this.show_container = _el}}
              > 
                 <RowShowList 
                     showList={this.getRecommendShowList(shows)}
                     onClick={(_el)=>{console.log(_el)}}
                 /> 
-                {this.show_container&&hasMore?<LoadMore 
+                <LoadMore 
                     containerNode = {this.show_container}
-                    isLoadingMore={isLoadingMore} 
+                    isLoadingMore={this.state.isLoadingMore} 
                     loadingText={'轮轮正努力加载中...'}
-                    toLoadText={'加载更多...'}
-                    loadMoreFn={()=>{this.loadMoreShow()}} toBottom="50" 
-                />:<NoticeTip content="拉到底了，老板请您别扯了..."/>} 
-                {/*<ListContainer />   */}
-            </div>
-           
+                    toLoadText={'即将加载更多...'}
+                    loadMoreFn={()=>{
+                        hasMore&&this.loadMoreShow&&this.loadMoreShow()
+                    }} 
+                    toBottom="25" 
+                    hasMore = {hasMore}
+                    noMoreText = {'拉到底了，老板请您别扯了...'}
+                />
+            </div>          
         )
     }   
 }
-ListShow.demo = '123'
 export default ListShow;
