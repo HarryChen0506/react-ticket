@@ -1,0 +1,28 @@
+//自己封装的MyList
+.my-list {
+     .content {
+        color:#494949;
+        font-size: 1.4rem;
+    }
+    @media (-webkit-min-device-pixel-ratio: 2), not all, (min-resolution: 2dppx){
+        .am-list-body::before {       
+            background-color: rgba(228,228,228,.5) !important; 
+        }
+        .am-list-body::after {       
+            background-color: rgba(228,228,228,.5) !important;
+        }   
+    }
+    .am-list-line, .am-list-line-multiple{
+        padding-right: 0px;
+        margin-right: 15px;
+    }
+    .am-list-item {
+        .am-list-line{
+            .am-list-extra{
+                color: #aaa;
+                font-size: 1.2rem;
+            }  
+        }
+    } 
+}
+

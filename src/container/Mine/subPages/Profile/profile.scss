@@ -1,0 +1,27 @@
+.profile-list {  
+    .profile-content {
+        color: #331511;
+        font-size: 2rem;
+        font-weight: 700;
+    }  
+    .am-list-item {
+        padding-top: 1rem;
+        padding-bottom: 1rem;
+        background-color: #fff; 
+    }
+    @media (-webkit-min-device-pixel-ratio: 2), not all, (min-resolution: 2dppx){
+        .am-list-body::before {       
+            background-color: rgba(228,228,228,.5) !important; 
+        }
+        .am-list-body::after {       
+            background-color: rgba(228,228,228,.5) !important;
+        }   
+    }
+    .am-list-thumb {
+        img{
+            width: 5.5rem;
+            height: 5.5rem;
+        }
+    }
+
+}

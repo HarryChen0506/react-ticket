@@ -7,15 +7,16 @@ import NavLinkBar from 'component/NavLinkBar';
 import './dashboard.scss'
 import Main from 'container/Main'
 import List from 'container/List'
+import Mine from 'container/Mine'
 // function List(){
 //     return <div>演出列表页</div>
 // }
 // function Main(){
 //     return <div>精选页面</div>
 // }
-function Mine(){
-    return <div>用户页面</div>
-}
+// function Mine(){
+//     return <div>用户页面</div>
+// }
 class Dashboard extends React.Component{ 
     render(){
         const pathname = this.props.location.pathname;

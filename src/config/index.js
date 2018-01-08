@@ -17,7 +17,20 @@ const config = {
         {code: "5", name: "Dancing", text: "舞蹈芭蕾"},       
         {code: "7", name: "Exhibition", text: "展览休闲"},
         {code: "9", name: "Children", text: "儿童亲子"}    
-    ]
+    ],
+    orderCategoryList: [
+        {icon: require('static/images/orderCategory/topay.png'),text:'待付款',name:'topay',code:'1'},
+        {icon: require('static/images/orderCategory/tosend.png'),text:'待配票',name: "tosend",code: "2"},
+        {icon: require('static/images/orderCategory/sending.png'),text:'配票中',name: "sending",code: "3"},
+        {icon: require('static/images/orderCategory/toreceive.png'),text:'待取票',name: "toreceive",code: "4"},
+    ],
+    mineCategory: {
+        address: {icon: require('static/images/mineCategory/address.png'),text:'地址管理',name:'address',code:'1'},
+        coupon: {icon: require('static/images/mineCategory/coupon.png'),text:'我的优惠券',name: "coupon",code: "3"},
+        online: {icon: require('static/images/mineCategory/online.png'),text:'在线客服',name: "online",code: "4"},
+        contact: {icon: require('static/images/mineCategory/contact.png'),text:'联系电话',name: "contact",code: "2"}
+    }
+       
 }
 
 export default config;
