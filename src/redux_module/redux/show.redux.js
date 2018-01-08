@@ -115,7 +115,7 @@ export function loadListShow(params,config,callback){
                 const shows = result.data||[]; 
                 const { offset=0, count=0, length=0} = result.pagination||{};
                 const hasMore = calHasMore({count,offset,length});
-                const scrollToTop = config&&config.scrollToTop || false;                         
+                const scrollToTop = (config&&config.scrollToTop) || false;                         
                dispatch(listShow({shows, offset, count, length, hasMore, scrollToTop}, config))
                callback&&typeof callback.success==='function'&&callback.success(res);              
             }else{                

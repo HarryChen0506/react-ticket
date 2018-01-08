@@ -1,6 +1,6 @@
 // 个人中心页面
 import React from 'react'
-import { NavBar, Icon, List, Button, WhiteSpace, WingBlank } from 'antd-mobile'
+import { NavBar, Icon, Button,  WingBlank } from 'antd-mobile'
 import Profile from './subPages/Profile'
 import MyOrder from './subPages/MyOrder'
 import OrderCategory from 'component/OrderCategory'

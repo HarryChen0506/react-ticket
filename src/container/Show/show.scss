@@ -1,0 +1,11 @@
+//演出页面
+.show-page {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    .main{
+        flex: 1;
+        height: 100%;
+        overflow: auto;
+    }
+}
