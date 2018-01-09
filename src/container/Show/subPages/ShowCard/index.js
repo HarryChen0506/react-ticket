@@ -7,26 +7,27 @@ import React from 'react';
 import './showCard.scss'
 class ShowCard extends React.Component{ 
     render(){       
+        const show = this.props.show;
         return(
             <div className="show-card">
                <div className="card-img"
-                    style={{backgroundImage: 'url(https://img2.tking.cn/assets/img/b2WfWZftJw.jpg)'}}
+                    style={{backgroundImage: `url(${show.imgUrl})`}}
                ></div>
                <div className="card-detail"> 
                    <div className="row"> 
-                       <div className="name">【上海站】中国有嘻哈live巡回演唱会</div> 
+                       <div className="name">{show.showName}</div> 
                     </div>
                     <div className="row"> 
-                        <div className="tags"><div className="tag">售票中</div></div> 
-                        <div className="price" ><div className="number">548</div><div className="text">元起</div></div> 
+                        <div className="tags"><div className="tag">{show&&show.showStatus&&show.showStatus.displayName}</div></div> 
+                        <div className="price" ><div className="number">{show.minPrice}</div><div className="text">元起</div></div> 
                     </div> 
                 </div>
                 <div className="card-discount"> 
-                    <div className="number ng-binding"> 9.9 </div> 折起 
+                    <div className="number ng-binding"> {show.discount} </div> {show.text} 
                 </div>
                 <div className="card-bg">
                     <div className="img-holder" 
-                        style={{backgroundImage: 'url(https://img2.tking.cn/assets/img/b2WfWZftJw.jpg)'}}></div>
+                        style={{backgroundImage: `url(${show.imgUrl})`}}></div>
                     <div className="img-border"
                          style={{backgroundImage: `url(${require('./images/border.png')})`}} 
                     ></div>

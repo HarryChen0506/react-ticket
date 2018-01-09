@@ -7,5 +7,16 @@
         flex: 1;
         height: 100%;
         overflow: auto;
+        .buy-tip {
+            // padding-top: 1rem;
+            .tips-content {
+                padding: 2rem 0;
+                .tip-item {
+                    font-size: 1.2rem;
+                    line-height: 2.2rem;
+                    color: #494949
+                }
+            }            
+        }
     }
 }

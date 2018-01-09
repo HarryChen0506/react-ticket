@@ -1,0 +1,38 @@
+.vary-header{
+    width:100%;  
+    position: relative; 
+    .middle {
+        height: 5rem;
+        background: #fff;
+        padding: 0 8rem;
+        transition: all 0.1 linear;
+        color: #131313;
+        display: flex;
+        justify-content:center;
+        align-items:center;
+    }
+    .left, .right{
+        position: absolute;        
+        width: 8rem;
+        height: 5rem;
+        // background: #ccc;
+        display: flex;
+        justify-content:center;
+        align-items:center;
+    }
+    .left{
+        left:0;
+        top:0;
+    }
+    .right{       
+        right:0;
+        top:0;      
+    }
+    &.light{
+       color: #fff;      
+    }
+    &.deep{
+       color: #777;
+        border-bottom: 1px solid rgba(221,221,221,0.3);
+    }
+}

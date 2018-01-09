@@ -1,12 +1,28 @@
 .show-content {
-    padding: 1rem 0;
+    padding: 2rem 0 1rem 0;
     .show-main {
+        overflow: hidden;
+        padding-top: 15px;
         color: #777;
         font-size: 1.2rem;
         line-height: 1.8rem;
-        transition: height .5s;
+        transition: all 1s linear;
         img {
             max-width: 98%;
+        }
+    }
+    .show-all {
+        font-size: 1.2rem;
+        color: #333;
+        line-height: 2rem;
+        text-align: center;
+        padding: 1rem 0;
+        .all {
+            display: flex;
+            justify-content: center;
+            .text {
+                margin-right: 10px
+            }
         }
     }
 }

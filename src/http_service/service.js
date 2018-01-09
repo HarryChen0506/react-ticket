@@ -72,6 +72,12 @@ const main = {
         const api = '/api/showapi/pub/show/'+showOID
         const url = getUrl(api,params)
         return http.httpGet(url)
+    },
+    getRelateShowList(showOID,params){
+        //https://m.tking.cn/showapi/pub/shows/5a2657266204e6181d467da9/recommendShows?src=m_web&offset=0&length=5&time=1515494380049
+        const api = '/api/showapi/pub/shows/'+showOID+'/recommendShows'
+        const url = getUrl(api,params)
+        return http.httpGet(url)
     }
 
 }
