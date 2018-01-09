@@ -1,0 +1,12 @@
+.show-content {
+    padding: 1rem 0;
+    .show-main {
+        color: #777;
+        font-size: 1.2rem;
+        line-height: 1.8rem;
+        transition: height .5s;
+        img {
+            max-width: 98%;
+        }
+    }
+}

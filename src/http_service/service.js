@@ -66,7 +66,13 @@ const main = {
         const api = '/api/showapi/pub/site/1001/active_show'
         const url = getUrl(api,params)
         return http.httpGet(url)
-    }  
+    },
+    getShowById: function(showOID,params){
+        //https://m.tking.cn/showapi/pub/show/5a128275a251d83d1f0e191d?client=piaodashi_weixin&src=m_web&time=1515476939151
+        const api = '/api/showapi/pub/show/'+showOID
+        const url = getUrl(api,params)
+        return http.httpGet(url)
+    }
 
 }
 const user = {

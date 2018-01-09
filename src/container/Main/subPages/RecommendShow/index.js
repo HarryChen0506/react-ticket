@@ -1,5 +1,6 @@
 // 主页-推荐演出
 import React from 'react'
+import { withRouter } from 'react-router-dom'
 import { connect } from 'react-redux'
 import './recommendShow.scss'
 import SectionTitle from 'component/SectionTitle'
@@ -7,6 +8,7 @@ import RowShowList from 'component/RowShowList'
 import SectionLogo from 'component/SectionLogo'
 import httpService from 'http_service/service.js'
 
+@withRouter
 @connect(
     state=>state,
     null
@@ -35,7 +37,11 @@ class RecommendShow extends React.Component{
                 <SectionTitle title="为您推荐" />  
                 <RowShowList 
                     showList={this.getRecommendShowList(this.props.show.recommendShow)}
-                    onClick={(_el)=>{console.log(_el)}}
+                    onClick={(_el)=>{
+                        console.log(_el);
+                        const showOID = _el.showOID;
+                        this.props.history.push('/show/'+showOID)
+                    }}
                 /> 
                 <SectionLogo title="摩天轮票务"/>     
             </div>

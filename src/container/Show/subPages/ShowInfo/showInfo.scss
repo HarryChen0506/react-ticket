@@ -1,0 +1,77 @@
+//演出信息showinfo
+.show-info {
+   
+    background: #fff;
+    .main {
+        padding: 0.5rem 1.5rem 0;
+        .row {
+            display: flex;
+            padding: 0.5rem 0;
+            .icon {
+                display: inline-block;
+                min-width: 3rem;
+                height: 2rem;   
+                background-size: 2rem 2rem;      
+                background-position: top center;
+                background-repeat: no-repeat; 
+                &.time {
+                background-size: 1.8rem 1.8rem;    
+                }  
+                &.location {
+                background-size: 2rem 2rem;    
+                }  
+            }
+            .content {
+                flex: 1;
+                color: #333;
+                font-size: 1.2rem;
+                line-height: 1.8rem;
+                .light {
+                    color: #777;
+                }
+            }
+        }
+        .promise-row {
+            display: flex;
+            padding: 0.5rem 1rem; 
+            .promise {
+                flex:1;
+                display: flex;
+                // justify-content:center;
+                .promise-icon {
+                    width: 2rem;
+                    height: 2rem;   
+                    background-size: 2rem 2rem;      
+                    background-position: center center;
+                    background-repeat: no-repeat; 
+                }
+                .promise-text {
+                    font-size: 1.2rem;
+                    line-height:2rem;
+                    color: #777;
+                }
+            }
+        }
+    }   
+    .splitor {
+        position: relative;
+        height: 1rem;
+        border-bottom: 1px dashed #e4e4e4;
+    }
+    .splitor:before,  .splitor:after{
+        position: absolute;        
+        height: 1.3rem;
+        width: 0.65rem;
+        background-color: #e4e4e4;
+        bottom: -7px;
+        content: "";
+    }
+    .splitor:before {
+        border-radius:0  0.65rem 0.65rem  0 ;
+        left:0
+    }
+    .splitor:after {
+        border-radius: 0.65rem  0 0 0.65rem ;
+        right: 0
+    }
+}

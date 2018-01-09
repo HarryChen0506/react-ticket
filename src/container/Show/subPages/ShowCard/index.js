@@ -21,13 +21,13 @@ class ShowCard extends React.Component{
                         <div className="price" ><div className="number">548</div><div className="text">元起</div></div> 
                     </div> 
                 </div>
-                <div class="card-discount"> 
-                    <div class="number ng-binding"> 9.9 </div> 折起 
+                <div className="card-discount"> 
+                    <div className="number ng-binding"> 9.9 </div> 折起 
                 </div>
                 <div className="card-bg">
                     <div className="img-holder" 
                         style={{backgroundImage: 'url(https://img2.tking.cn/assets/img/b2WfWZftJw.jpg)'}}></div>
-                    <div class="img-border"
+                    <div className="img-border"
                          style={{backgroundImage: `url(${require('./images/border.png')})`}} 
                     ></div>
                 </div>
