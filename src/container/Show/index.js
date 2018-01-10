@@ -128,7 +128,6 @@ class Show extends React.Component{
                     className="main" 
                     ref={(_el)=>{this.show_container = _el}}
                     onScroll={()=>{
-                        {/*console.log('this.show_container',this.show_container.scrollTop)   */}
                         const scrollTop = this.show_container.scrollTop||0;
                         this.setState({
                             scrollTop: scrollTop
