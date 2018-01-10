@@ -53,6 +53,6 @@ class VaryHeader extends React.Component{
     }   
 }
 VaryHeader.defaultProps = {
-    arrow: false
+    opacity: 0
 }
 export default VaryHeader;

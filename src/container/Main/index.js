@@ -5,11 +5,13 @@ import TopBanner from './subPages/TopBanner'
 import Category from './subPages/Category'
 import HotShow from './subPages/HotShow'
 import RecommendShow from './subPages/RecommendShow'
+import VaryHeader from 'component/VaryHeader'
+import CityName from 'component/CityName'
 import { Toast } from 'antd-mobile'
 
+import './main.scss'
 import { connect } from 'react-redux'
 import { categoryShow, loadListShow } from 'redux_module/redux/show.redux.js';
-
 @connect(
     state=>state,
     { categoryShow, loadListShow }
@@ -18,13 +20,32 @@ class Main extends React.Component{
     constructor(...args){
         super(...args);        
         this.state = {
-            categoryList: config.mainCategoryList
+            categoryList: config.mainCategoryList,
+            scrollTop: 0
         }
-    }
-    
+    }    
     render(){        
          return (
-            <div>
+            <div 
+                className="main-page" 
+                ref={(_el)=>{this.container = _el}}
+                onScroll={()=>{
+                    let scrollTop = this.container.scrollTop||0;
+                    if(scrollTop<5){
+                        scrollTop = 0;
+                        this.container.scrollTo(0,0)                        
+                    }
+                    this.setState({
+                        scrollTop: scrollTop
+                    })
+                }}
+            >
+                <VaryHeader
+                    style={{position: 'absolute',top:'0',left: '0',zIndex:'1',width:'100%'}}
+                    scrollTop={this.state.scrollTop}
+                    threshold={150}
+                    left={<CityName city="上海"></CityName>}
+                />
                 <TopBanner /> 
                 <div style={{height: '25px', width: '100%', background: '#fff'}}></div>  
                 <Category 
