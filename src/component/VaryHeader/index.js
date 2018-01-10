@@ -12,14 +12,10 @@ class VaryHeader extends React.Component{
             scrollTop: this.props.scrollTop||0
         }
         this.config = {
-             threshold: this.props.threshold||100,
+             threshold: this.props.threshold||150,
         }
     }
     componentWillReceiveProps(nextProps){
-    //    console.log('nextProps',nextProps)
-    //    const boxHeight= this.box.getBoundingClientRect().height;
-    //    console.log('boxHeight',boxHeight)        
-        console.log('opacity',this.calOpacity(),this.calClassName())
         this.setState({
             opacity: this.calOpacity(),
             className: this.calClassName()
@@ -27,7 +23,7 @@ class VaryHeader extends React.Component{
     }
     calOpacity(){
         const scrollTop = this.props.scrollTop;
-        const radio = scrollTop/this.config.threshold;
+        const radio = (scrollTop-20)/this.config.threshold;
         if(radio>1){
             return  1
         }else if(radio<0.15){
@@ -37,15 +33,14 @@ class VaryHeader extends React.Component{
     }
     calClassName(){
         const scrollTop = this.props.scrollTop;
-        const threshold = this.props.threshold*0.8;
+        const threshold = this.props.threshold*0.5;
         if(scrollTop>threshold){
             return 'deep'
         }else{
             return 'light'
         }
     }
-    render(){   
-
+    render(){  
          return (
              <div style={this.props.style}>
                   <div className={"vary-header "+this.state.className} ref={(_el)=>{this.box=_el}}> 
@@ -54,7 +49,6 @@ class VaryHeader extends React.Component{
                         <div className="right">{this.props.right}</div>
                   </div>
              </div>
-          
         )
     }   
 }

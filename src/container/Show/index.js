@@ -1,6 +1,6 @@
 // 演出详情 页面
 import React from 'react';
-// import { NavBar } from 'antd-mobile';
+import { Icon, Toast, Modal } from 'antd-mobile';
 // import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import httpService from 'http_service/service.js'
@@ -44,15 +44,19 @@ class Show extends React.Component{
         const params = {
             client: 'piaodashi_weixin',
             src: 'm_web'
-        }        
+        }   
+        Toast.loading('正在加载...', 0, () => {});     
         httpService.main.getShowById(showOID,params).then((res)=>{            
             if(res.data.statusCode===200){
                 this.setState({
                     show: res.data.result.data
                 })
+                Toast.hide();
+            }else{
+                Toast.fail(res.data.comments||'加载失败!!!', 1);
             }
         },(err)=>{
-
+            Toast.fail('服务器出错,请稍后再试!!!', 1);
         })
     }
     getRelateShowList(showOID){
@@ -107,14 +111,17 @@ class Show extends React.Component{
         }))
     }
     scrollToTop(node){
-        console.log('node',node)
         if(node && typeof(node.scrollTo)==='function'){
             node.scrollTo(0,0)
         }
     }
+    backPage(){       
+        this.props.history.goBack()
+    }
     render(){
         // const pathname = this.props.location.pathname;
         const show = this.state.show;
+        const alert = Modal.alert;
         return(
             <div className="show-page" >
                 <div 
@@ -131,10 +138,9 @@ class Show extends React.Component{
                     <VaryHeader
                         style={{position: 'absolute',top:'0',left: '0',zIndex:'3',width:'100%'}}
                         scrollTop={this.state.scrollTop}
-                        threshold={100}
-                        left={<span>12</span>}
-                        right={<span>12</span>}
-                        middle={<div style={{}}>{this.state.show.showName}</div>}
+                        threshold={150}
+                        left={<span className="back" onClick={()=>{this.backPage()}}><Icon type={'left'} /></span>}
+                        middle={<div className="show-header">{this.state.show.showName}</div>}
                     />
                     <ShowCard show={this.convertShowModel(this.state.show)} />
                     <ShowInfo show={this.convertShowModel(this.state.show)} />
@@ -160,7 +166,6 @@ class Show extends React.Component{
                             <RowShowList 
                                 showList={this.convertShowListModel(this.state.relateShowList)}
                                 onClick={(_el)=>{
-                                    console.log(_el);
                                     const showOID = _el.showOID;
                                     this.props.history.push('/show/'+showOID);
                                 }}
@@ -169,7 +174,28 @@ class Show extends React.Component{
                         </div>
                     </div>
                 </div>
-                <div style={{height: '50px', background: '#ccc'}}></div>
+                <div className="show-nav">
+                    <div className="nav-icon">
+                        <div>
+                            <img src={require('./images/customer-service.png')} alt="客服" />
+                            <div className="text">客服</div>
+                        </div>
+                    </div>
+                    <div className="nav-button"
+                        onClick={()=>{
+                            alert('友情提示', '确定购买吗?', [
+                                { text: '取消', onPress: () => console.log('取消') },
+                                {
+                                    text: '确定',
+                                    onPress: () => new Promise((resolve) => {
+                                        Toast.info('抱歉，演示页面不提供购票功能', 2);
+                                        setTimeout(resolve, 1000);
+                                    }),
+                                },
+                            ])
+                        }}
+                    >立即购买</div>
+                </div>
             </div>
         )
     }

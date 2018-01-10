@@ -17,7 +17,7 @@ class ShowContent extends React.Component{
        this.calBoxHeight();              
     }
     componentWillUnmount(){
-        console.log('销毁',this.timer)
+        // console.log('销毁',this.timer)
         clearTimeout(this.timer)
     }
     calBoxHeight(){
@@ -29,7 +29,6 @@ class ShowContent extends React.Component{
             this.setState({
                 allHeight: this.htmlBox.getBoundingClientRect().height+'px'
             }) 
-            console.log('allHeight',this.htmlBox.getBoundingClientRect().height) 
         },1000)
     }
     render(){       

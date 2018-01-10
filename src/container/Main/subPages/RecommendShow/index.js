@@ -38,7 +38,7 @@ class RecommendShow extends React.Component{
                 <RowShowList 
                     showList={this.getRecommendShowList(this.props.show.recommendShow)}
                     onClick={(_el)=>{
-                        console.log(_el);
+                        {/*console.log(_el);*/}
                         const showOID = _el.showOID;
                         this.props.history.push('/show/'+showOID)
                     }}
