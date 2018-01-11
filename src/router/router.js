@@ -4,15 +4,17 @@ import { BrowserRouter, Route, Switch} from 'react-router-dom';
 import Dashboard from 'container/Dashboard';
 import Show from 'container/Show';
 import City from 'container/City';
+import Login from 'container/Login';
+import Register from 'container/Register';
 import { LocalStorage } from 'utils'
 
 import { connect } from 'react-redux';
 import { loadBannerShow, loadHotShow, loadRecommendShow, categoryShow, loadListShow, cityShow } from 'redux_module/redux/show.redux.js';
 import config from 'config';
-function Login(){
-    return <div>登录组件</div>
-}
 
+// function Login(){
+//     return <div>登录组件</div>
+// }
 // function Dashboard(){
 //     return <div>面板组件</div>
 // }
@@ -61,6 +63,7 @@ class AppRoute extends React.Component{
                 <div className="router">   
                     <Switch>   
                         <Route path="/login" component={Login} />
+                        <Route path="/Register" component={Register} />
                         <Route path="/show/:showid" component={Show} />
                         <Route path="/city" component={City} />
                         <Route component={Dashboard} />

@@ -1,5 +1,6 @@
 // List页面  -演出列表页面
 import React from 'react'
+import { withRouter } from 'react-router-dom'
 import { Toast } from 'antd-mobile'
 import LoadMore from 'component/LoadMore'
 import ScrollTop from 'component/ScrollTop'
@@ -9,7 +10,7 @@ import RowShowList from 'component/RowShowList'
 import { connect } from 'react-redux'
 import { categoryShow, loadListShow } from 'redux_module/redux/show.redux.js'
 import './listShow.scss'
-
+@withRouter
 @connect(
     state=>state,
     { categoryShow, loadListShow }
@@ -133,7 +134,10 @@ class ListShow extends React.Component{
              > 
                 <RowShowList 
                     showList={this.getRecommendShowList(shows)}
-                    onClick={(_el)=>{console.log(_el)}}
+                    onClick={(_el)=>{
+                         const showOID = _el.showOID;
+                        this.props.history.push('/show/'+showOID)
+                    }}
                 /> 
                 <LoadMore 
                     containerNode = {this.show_container}

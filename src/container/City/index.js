@@ -2,7 +2,7 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
 import { withRouter } from 'react-router-dom'
-import { NavBar, Icon } from 'antd-mobile'
+import { NavBar, Icon, Toast } from 'antd-mobile'
 import CityCategory from './subPages/CityCategory'
 import CityItem from './subPages/CityItem'
 import CityButton from './subPages/CityButton'
@@ -54,16 +54,20 @@ class City extends React.Component{
         },null,null);   
     }
     getCities(){
+        Toast.loading('加载城市列表...', 0, () => {});
         httpService.main.getCities().then((res)=>{
             if(res.data.statusCode===200){
-                 this.setState({
+                this.setState({
                     allCities: res.data.result.allCities,
                     hotCities: res.data.result.hotCities,
                     slide: this.calSlideList(res.data.result.hotCities, res.data.result.allCities )
-                 })
+                })
+                Toast.hide();
+            }else{
+                Toast.fail(res.data.comments||'加载失败!!!', 1);
             }
         },(err)=>{
-            console.log(err)
+            Toast.fail('加载失败!!!', 1);
         })
     }
     calSlideList(hotCities,allCities){
