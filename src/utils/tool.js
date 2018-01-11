@@ -17,3 +17,10 @@ export function getRedirectToPath({type, avatar}){
 export function getChatId(myId, somebodyId){
     return [myId, somebodyId].sort().join('_')
 }
+
+const tool = {
+    getRedirectToPath,
+    getChatId
+}
+
+export { tool }

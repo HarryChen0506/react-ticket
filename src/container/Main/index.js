@@ -38,14 +38,15 @@ class Main extends React.Component{
             })
         },50)
     }
-    render(){        
+    render(){       
+         const currentCity = this.props.show.city; 
          return (
             <div className="main-page"  ref={(_el)=>{this.container = _el}}>
                 <VaryHeader
                     style={{position: 'absolute',top:'0',left: '0',zIndex:'1',width:'100%'}}
                     scrollTop={this.state.scrollTop}
                     threshold={150}
-                    left={<CityName city="上海" onClick={()=>{this.props.history.push('./city')}}></CityName>}
+                    left={<CityName city={currentCity.cityName} onClick={()=>{this.props.history.push('./city')}}></CityName>}
                 />
                 <TopBanner /> 
                 <div style={{height: '25px', width: '100%', background: '#fff'}}></div>  

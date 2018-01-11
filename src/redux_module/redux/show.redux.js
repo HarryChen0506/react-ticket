@@ -7,6 +7,7 @@ const ERROR_MSG = 'ERROR_MSG';
 const SHOW_CATEGORY = 'SHOW_CATEGORY'; //演出分类
 const SHOW_LIST = 'SHOW_LIST'; //演出列表
 const SHOW_DEMO = 'SHOW_DEMO'; //测试
+const SHOW_CITY = 'SHOW_CITY'; //城市站点
 
 export function categoryShow(data){
     return {
@@ -23,6 +24,12 @@ export function errorMsg(data){
 export function demoShow(data){
     return {
         type: SHOW_DEMO,
+        payload: data
+    }
+}
+export function cityShow(data){
+    return {
+        type: SHOW_CITY,
         payload: data
     }
 }
@@ -143,6 +150,12 @@ const initState = {
     },
     category: {},
     demo: '',
+    city: {        
+        cityOID: "3101",
+        province: "上海市",
+        cityName: "上海",
+        spelling: "shanghai",
+    },
     msg: ''
 }
 export function show(state = initState, action){
@@ -162,10 +175,13 @@ export function show(state = initState, action){
                return {...state, listShow: {...state.listShow, ...action.payload, shows}} 
             }
             return {...state, listShow: {...state.listShow, ...action.payload}} 
+        case SHOW_CITY:
+            return {...state, city: action.payload}
         case ERROR_MSG:
             return {...state, ...action.payload}
         case SHOW_DEMO:
             return {...state, ...action.payload}
+        
         default:
             return state
     }

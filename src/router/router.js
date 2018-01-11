@@ -4,9 +4,10 @@ import { BrowserRouter, Route, Switch} from 'react-router-dom';
 import Dashboard from 'container/Dashboard';
 import Show from 'container/Show';
 import City from 'container/City';
+import { LocalStorage } from 'utils'
 
 import { connect } from 'react-redux';
-import { loadBannerShow, loadHotShow, loadRecommendShow, categoryShow, loadListShow } from 'redux_module/redux/show.redux.js';
+import { loadBannerShow, loadHotShow, loadRecommendShow, categoryShow, loadListShow, cityShow } from 'redux_module/redux/show.redux.js';
 import config from 'config';
 function Login(){
     return <div>登录组件</div>
@@ -17,7 +18,7 @@ function Login(){
 // }
 @connect(
     state=>state,
-    { loadBannerShow, loadHotShow, loadRecommendShow, categoryShow, loadListShow }
+    { loadBannerShow, loadHotShow, loadRecommendShow, categoryShow, loadListShow, cityShow }
 )
 class AppRoute extends React.Component{  
     componentDidMount(){        
@@ -25,6 +26,10 @@ class AppRoute extends React.Component{
         this.props.loadHotShow();        
         this.props.loadRecommendShow();        
         this.props.categoryShow(config.categoryList[0]);    
+        if(LocalStorage.get('city')){
+            const city = JSON.parse(LocalStorage.get('city'));
+            this.props.cityShow(city); 
+        }
         this.props.loadListShow({
             src: 'm_web',
             siteCityOID: '1001',

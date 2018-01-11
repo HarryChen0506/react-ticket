@@ -6,16 +6,16 @@ import { NavBar, Icon } from 'antd-mobile'
 import CityCategory from './subPages/CityCategory'
 import CityItem from './subPages/CityItem'
 import CityButton from './subPages/CityButton'
-import config from 'config'
+import { LocalStorage } from 'utils'
 import './city.scss'
 import httpService from 'http_service/service.js'
 
 import { connect } from 'react-redux'
-import { categoryShow, loadListShow } from 'redux_module/redux/show.redux.js';
+import { cityShow } from 'redux_module/redux/show.redux.js';
 @withRouter
 @connect(
     state=>state,
-    { categoryShow, loadListShow }
+    { cityShow }
 )
 class City extends React.Component{
     constructor(...args){
@@ -77,6 +77,7 @@ class City extends React.Component{
          const hotCities = this.state.hotCities;
          const allCities = this.state.allCities;
          const slide = this.state.slide;
+         const currentCity = this.props.show.city;
          return (
             <div className="city-page">
                 <NavBar
@@ -88,13 +89,27 @@ class City extends React.Component{
                     <div className="main-left">
                         <CityCategory title={'热门城市'} type={'column'} ref={(node)=>this['hot']=node}>  
                             {hotCities.map(item=>
-                                <CityButton key={item.cityName} name={item.cityName} active={true} onClick={()=>{console.log(item)}}></CityButton>        
+                                <CityButton 
+                                    key={item.cityName} 
+                                    name={item.cityName} 
+                                    active={currentCity.cityOID===item.cityOID}
+                                    onClick={()=>{
+                                        this.props.cityShow(item);
+                                        this.props.history.goBack()
+                                    }}
+                                ></CityButton>        
                             )}                                                   
                         </ CityCategory>                    
                         {allCities.map((item, index)=>(
                             <CityCategory title={item.title} key={item.title} type={'row'} ref={(node)=>this[item.title]=node}>
                                 {item.cities.map(city=>(
-                                    <CityItem key={city.cityOID} name={city.cityName} active={true} onClick={()=>{console.log(city)}}></CityItem>
+                                    <CityItem key={city.cityOID} name={city.cityName} active={currentCity.cityOID===city.cityOID}
+                                        onClick={()=>{
+                                             LocalStorage.save('city', JSON.stringify(city))
+                                             this.props.cityShow(city);
+                                             this.props.history.goBack()                                            
+                                        }}
+                                    ></CityItem>
                                 ))}                            
                             </ CityCategory>
                         ))}
