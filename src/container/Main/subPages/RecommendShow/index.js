@@ -6,7 +6,6 @@ import './recommendShow.scss'
 import SectionTitle from 'component/SectionTitle'
 import RowShowList from 'component/RowShowList'
 import SectionLogo from 'component/SectionLogo'
-import httpService from 'http_service/service.js'
 
 @withRouter
 @connect(
@@ -38,7 +37,6 @@ class RecommendShow extends React.Component{
                 <RowShowList 
                     showList={this.getRecommendShowList(this.props.show.recommendShow)}
                     onClick={(_el)=>{
-                        {/*console.log(_el);*/}
                         const showOID = _el.showOID;
                         this.props.history.push('/show/'+showOID)
                     }}

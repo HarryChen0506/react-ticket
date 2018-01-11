@@ -1,0 +1,20 @@
+.city-category {
+    font-size: 1.4rem;
+    .category-title{
+        padding: 10px 15px;
+        height: 2rem;
+        line-height: 2rem;
+        color: #aaa;
+    }
+    .category-body{
+        padding: 0 15px;
+        &.row {
+            background: #fff;   
+        } 
+        &.column {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+        }  
+    }
+}

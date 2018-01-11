@@ -3,12 +3,8 @@ import React from 'react'
 import {  List } from 'antd-mobile'
 import './profile.scss'
 class Profile extends React.Component{
-    constructor(...args){
-        super(...args); 
-    }    
     render(){  
         const Item = List.Item;
-        const Brief = Item.Brief; 
         const thumb = this.props.thumb||require('./images/profile.png');
          return (
              <div

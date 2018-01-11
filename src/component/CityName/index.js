@@ -3,9 +3,6 @@ import React from 'react'
 import './cityName.scss'
 
 class CityName extends React.Component{
-    constructor(...args){
-        super(...args);
-    }    
     render(){  
          return (
              <div className="city-name" style={this.props.style}

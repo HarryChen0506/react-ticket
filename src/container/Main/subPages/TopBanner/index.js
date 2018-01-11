@@ -3,7 +3,6 @@ import React from 'react'
 import { connect } from 'react-redux'
 import './topBanner.scss'
 import MainCarousel from 'component/MainCarousel'
-import httpService from 'http_service/service.js'
 
 @connect(
     state=>state,

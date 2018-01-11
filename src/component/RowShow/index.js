@@ -3,9 +3,6 @@ import React from 'react'
 import './rowShow.scss'
 
 class RowShow extends React.Component{
-    constructor(...args){
-        super(...args); 
-    }
     calSaleName(status){
         if(status.displayName==='售票中'){
             return 'sell'

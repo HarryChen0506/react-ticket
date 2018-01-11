@@ -44,7 +44,7 @@ export default class LoadMore extends Component {
             // console.log('toTopDistance',toTopDistance)  
             const windowHeight = window.screen.height;  //浏览器视窗的高度
             // console.log('windowHeight',windowHeight)                  
-            const startDistance = windowHeight - parseInt(this.props.toBottom); //目标位置的高度
+            const startDistance = windowHeight - parseInt(this.props.toBottom,10); //目标位置的高度
             // console.log('start',startDistance)
             if (toTopDistance && toTopDistance < startDistance) {
                 // 证明 wrapper 已经被滚动到暴露在页面可视范围之内了

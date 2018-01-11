@@ -25,11 +25,16 @@ class Show extends React.Component{
             show: {},
             relateShowList: []
         }
+        this.timerId = null
     }
     componentDidMount(){
         const showOID = this.props.match.params.showid||'';
         this.getShow(showOID);
-        this.getRelateShowList(showOID)
+        this.getRelateShowList(showOID);
+        this.calScrollTop();
+    }
+    componentWillUnmount(){
+        clearInterval(this.timerId)
     }
     componentWillReceiveProps(nextProps){
         const lastShowid = this.props.match.params.showid;
@@ -39,6 +44,14 @@ class Show extends React.Component{
             this.getRelateShowList(nextShowid);
             this.scrollToTop(this.show_container)
         }
+    }
+    calScrollTop(){
+        this.timerId = setInterval(()=>{
+            const scrollTop = this.show_container.scrollTop||0;
+            this.setState({
+                scrollTop: scrollTop
+            })
+        },50)
     }
     getShow(showOID){
         const params = {
@@ -124,16 +137,7 @@ class Show extends React.Component{
         const alert = Modal.alert;
         return(
             <div className="show-page" >
-                <div 
-                    className="main" 
-                    ref={(_el)=>{this.show_container = _el}}
-                    onScroll={()=>{
-                        const scrollTop = this.show_container.scrollTop||0;
-                        this.setState({
-                            scrollTop: scrollTop
-                        })
-                    }}
-                >
+                <div className="main" ref={(_el)=>{this.show_container = _el}}>
                     <VaryHeader
                         style={{position: 'absolute',top:'0',left: '0',zIndex:'3',width:'100%'}}
                         scrollTop={this.state.scrollTop}

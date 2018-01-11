@@ -17,7 +17,6 @@ class ScrollShowList extends React.Component{
                             show={item}
                             style={{marginRight: "1rem"}}
                             onClick={(_el)=>{
-                                {/*console.log(_el)*/}
                                 const showOID = _el.showOID;
                                 this.props.history.push('/show/'+showOID)
                             }}

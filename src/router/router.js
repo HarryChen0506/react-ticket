@@ -3,6 +3,7 @@ import React from 'react';
 import { BrowserRouter, Route, Switch} from 'react-router-dom';
 import Dashboard from 'container/Dashboard';
 import Show from 'container/Show';
+import City from 'container/City';
 
 import { connect } from 'react-redux';
 import { loadBannerShow, loadHotShow, loadRecommendShow, categoryShow, loadListShow } from 'redux_module/redux/show.redux.js';
@@ -41,6 +42,7 @@ class AppRoute extends React.Component{
                     <Switch>   
                         <Route path="/login" component={Login} />
                         <Route path="/show/:showid" component={Show} />
+                        <Route path="/city" component={City} />
                         <Route component={Dashboard} />
                     </Switch> 
                 </div>  

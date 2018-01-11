@@ -2,9 +2,6 @@
 import React from 'react'
 import './scrollShow.scss'
 class ScrollShow extends React.Component{
-    constructor(...args){
-        super(...args);  
-    }
     render(){   
         const show = this.props.show||{};     
          return (

@@ -7,7 +7,6 @@ import HotShow from './subPages/HotShow'
 import RecommendShow from './subPages/RecommendShow'
 import VaryHeader from 'component/VaryHeader'
 import CityName from 'component/CityName'
-import { Toast } from 'antd-mobile'
 
 import './main.scss'
 import { connect } from 'react-redux'
@@ -23,28 +22,30 @@ class Main extends React.Component{
             categoryList: config.mainCategoryList,
             scrollTop: 0
         }
-    }    
+        this.timerId = null;
+    }   
+    componentDidMount(){      
+        this.calScrollTop();
+    }
+    componentWillUnmount(){
+        clearInterval(this.timerId)
+    }
+    calScrollTop(){
+        this.timerId = setInterval(()=>{
+            const scrollTop = this.container.scrollTop||0;
+            this.setState({
+                scrollTop: scrollTop
+            })
+        },50)
+    }
     render(){        
          return (
-            <div 
-                className="main-page" 
-                ref={(_el)=>{this.container = _el}}
-                onScroll={()=>{
-                    let scrollTop = this.container.scrollTop||0;
-                    if(scrollTop<5){
-                        scrollTop = 0;
-                        this.container.scrollTo(0,0)                        
-                    }
-                    this.setState({
-                        scrollTop: scrollTop
-                    })
-                }}
-            >
+            <div className="main-page"  ref={(_el)=>{this.container = _el}}>
                 <VaryHeader
                     style={{position: 'absolute',top:'0',left: '0',zIndex:'1',width:'100%'}}
                     scrollTop={this.state.scrollTop}
                     threshold={150}
-                    left={<CityName city="上海"></CityName>}
+                    left={<CityName city="上海" onClick={()=>{this.props.history.push('./city')}}></CityName>}
                 />
                 <TopBanner /> 
                 <div style={{height: '25px', width: '100%', background: '#fff'}}></div>  
@@ -63,16 +64,12 @@ class Main extends React.Component{
                             client:'piaodashi_weixin'
                         },null,{
                             beforeSend(){
-                                {/*console.log('发送!')*/}
                             },
                             success(){
-                                {/*console.log('成功！')*/}
                             },
                             fail(){
-                                {/*console.log('失败')*/}
                             },
                             error(){
-                                {/*console.log('报错')*/}
                             }
                         });
                         this.props.history.push('/list');

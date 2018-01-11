@@ -3,9 +3,6 @@ import React from 'react'
 import './sectionTitle.scss'
 
 class SectionTitle extends React.Component{
-    constructor(...args){
-        super(...args);
-    }
     render(){        
          return (
            <div className="section-title">                 

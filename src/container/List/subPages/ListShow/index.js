@@ -2,10 +2,8 @@
 import React from 'react'
 import { Toast } from 'antd-mobile'
 import LoadMore from 'component/LoadMore'
-import NoticeTip from 'component/NoticeTip'
 import ScrollTop from 'component/ScrollTop'
 import RowShowList from 'component/RowShowList'
-import httpService from 'http_service/service.js'
 
 
 import { connect } from 'react-redux'
@@ -54,12 +52,17 @@ class ListShow extends React.Component{
         }))
     }
     scrollToTop(node){
-        if(node && typeof(node.scrollTo)==='function'){
-            node.scrollTo(0,0)
+        if(!node){
+            return
         }
+        if(typeof(node.scrollTo)==='function'){
+            node.scrollTo(0,0)
+        }else{
+            node.scrollTop=0;
+        }        
     }
     calShowScrollTop(){
-        const distanceToTop = this.show_container&&this.show_container.scrollTop||0;
+        const distanceToTop = (this.show_container&&this.show_container.scrollTop)||0;
         if(distanceToTop>700){
             this.setState({
                 showScrollTop: true
@@ -114,8 +117,7 @@ class ListShow extends React.Component{
             }
         });       
     }
-    render(){    
-        const category = this.props.category;
+    render(){ 
         const shows = this.props.show.listShow.shows;       
         const hasMore = this.props.show.listShow.hasMore;
         // const isLoadingMore = this.props.show.listShow.isLoadingMore||false;

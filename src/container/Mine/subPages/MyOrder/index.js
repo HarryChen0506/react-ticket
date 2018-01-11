@@ -4,12 +4,8 @@ import {  List } from 'antd-mobile'
 
 import './myOrder.scss'
 class MyOrder extends React.Component{
-    constructor(...args){
-        super(...args);
-    }    
     render(){  
-        const Item = List.Item;
-        const Brief = Item.Brief; 
+        const Item = List.Item; 
          return (
              <div
                 style={this.props.style}

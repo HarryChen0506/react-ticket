@@ -78,6 +78,12 @@ const main = {
         const api = '/api/showapi/pub/shows/'+showOID+'/recommendShows'
         const url = getUrl(api,params)
         return http.httpGet(url)
+    },
+    getCities(params){
+        //https://m.tking.cn/showapi/cities
+        const api = '/api/showapi/cities'
+        const url = getUrl(api,params)
+        return http.httpGet(url)
     }
 
 }

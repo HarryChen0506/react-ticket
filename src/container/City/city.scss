@@ -1,0 +1,31 @@
+.city-page {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    .city-main {
+        flex:1;
+        display: flex;
+        overflow: auto;
+        .main-left{
+            flex: 1;
+            position: relative;
+        }
+        .main-slide {
+            width: 10%;
+            // background: red;
+            .slide-container {
+                width: 10%;
+                position: fixed;
+                top: 6rem;
+                right: 0;
+                text-align: center;
+                color: #108ee9;
+                div {
+                    height: 2rem;
+                    line-height: 2rem;
+                }
+            }
+        
+        }
+    }
+}

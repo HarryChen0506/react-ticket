@@ -10,9 +10,6 @@ import './hotShow.scss'
     null
 )
 class HotShow extends React.Component{
-     constructor(...args){
-        super(...args);
-    }
     getHotShowList(list=[]){        
         return list.map((item)=>({
             showName: item.showName,

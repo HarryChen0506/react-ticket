@@ -1,0 +1,15 @@
+.city-button {
+    box-sizing: border-box;
+    background: #fff;
+    width: 30%;
+    height: 4rem;
+    line-height: 4rem;
+    border-radius: 5px;
+    margin-bottom: 1.5rem;   
+    text-align: center;
+    color: #5a5a5a;
+    &.active {
+        border: 1px solid #fd6857;
+        color: #fd6857;
+    }
+}

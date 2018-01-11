@@ -1,6 +1,5 @@
 //面板页面
 import React from 'react';
-import { NavBar } from 'antd-mobile';
 // import { connect } from 'react-redux';
 import { Route, Switch } from 'react-router-dom';
 import NavLinkBar from 'component/NavLinkBar';
@@ -19,7 +18,7 @@ import Mine from 'container/Mine'
 // }
 class Dashboard extends React.Component{ 
     render(){
-        const pathname = this.props.location.pathname;
+        // const pathname = this.props.location.pathname;
         const navList = [{
             path: '/',
             text: '精选',
@@ -39,9 +38,8 @@ class Dashboard extends React.Component{
             title: '个人中心',
             component: Mine
         }];        
-        const title = navList.filter((v)=>v.path===pathname)[0] && navList.filter((v)=>v.path===pathname)[0].title;
+        // const title = navList.filter((v)=>v.path===pathname)[0] && navList.filter((v)=>v.path===pathname)[0].title;
         const filterList = navList;
-        // console.log('测试dash',pathname)
         return(
             <div className="dashboard">
                 <div className="main">

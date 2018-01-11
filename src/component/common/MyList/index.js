@@ -4,9 +4,6 @@ import { List } from 'antd-mobile'
 
 import './myList.scss'
 class MyList extends React.Component{
-    constructor(...args){
-        super(...args);
-    }    
     render(){ 
          return (
             <div style={this.props.style}>

@@ -2,9 +2,6 @@
 import React from 'react'
 import './sectionLogo.scss'
 class SectionLogo extends React.Component{
-    constructor(...args){
-        super(...args); 
-    }
     render(){        
          return (
            <div className="section-logo" {...this.props}>

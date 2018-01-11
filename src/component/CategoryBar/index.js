@@ -5,9 +5,6 @@ import './categoryBar.scss'
 import Item from './Item';
 
 class CategoryBar extends React.Component{
-    constructor(...args){
-        super(...args);  
-    } 
     calScrollValue(node){
         // console.log('node',node.getBoundingClientRect())
         const params = node.getBoundingClientRect();
