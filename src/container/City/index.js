@@ -6,16 +6,17 @@ import { NavBar, Icon } from 'antd-mobile'
 import CityCategory from './subPages/CityCategory'
 import CityItem from './subPages/CityItem'
 import CityButton from './subPages/CityButton'
+import config from 'config'
 import { LocalStorage } from 'utils'
 import './city.scss'
 import httpService from 'http_service/service.js'
 
 import { connect } from 'react-redux'
-import { cityShow } from 'redux_module/redux/show.redux.js';
+import { cityShow, loadBannerShow, loadHotShow, loadRecommendShow, loadListShow } from 'redux_module/redux/show.redux.js';
 @withRouter
 @connect(
     state=>state,
-    { cityShow }
+    { cityShow, loadBannerShow, loadHotShow, loadRecommendShow, loadListShow }
 )
 class City extends React.Component{
     constructor(...args){
@@ -29,6 +30,29 @@ class City extends React.Component{
     componentDidMount(){
         this.getCities()
     }  
+    initPage(city){
+        //banner
+        this.props.loadBannerShow({
+            siteCityOID: city.cityOID,
+        });     
+        //热门演出   
+        this.props.loadHotShow({
+            siteCityOID: city.cityOID,
+        });   
+        //推荐演出     
+        this.props.loadRecommendShow({
+            siteCityOID: city.cityOID,
+        }); 
+        this.props.loadListShow({
+            src: 'm_web',
+            siteCityOID: city.cityOID,
+            offset: 0,
+            length: 10,
+            sorting: 'weight',
+            seq:'desc',
+            client:'piaodashi_weixin'
+        },null,null);   
+    }
     getCities(){
         httpService.main.getCities().then((res)=>{
             if(res.data.statusCode===200){
@@ -94,7 +118,9 @@ class City extends React.Component{
                                     name={item.cityName} 
                                     active={currentCity.cityOID===item.cityOID}
                                     onClick={()=>{
+                                        LocalStorage.save('city', JSON.stringify(item))
                                         this.props.cityShow(item);
+                                        this.initPage(item);
                                         this.props.history.goBack()
                                     }}
                                 ></CityButton>        
@@ -107,6 +133,7 @@ class City extends React.Component{
                                         onClick={()=>{
                                              LocalStorage.save('city', JSON.stringify(city))
                                              this.props.cityShow(city);
+                                             this.initPage(city);
                                              this.props.history.goBack()                                            
                                         }}
                                     ></CityItem>

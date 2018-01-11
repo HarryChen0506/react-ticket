@@ -34,7 +34,7 @@ class List extends React.Component{
                        this.props.categoryShow(_el);  
                        this.props.loadListShow({
                             src: 'm_web',
-                            siteCityOID: '1001',
+                            siteCityOID: this.props.show.city.cityOID,
                             offset: 0,
                             length: 10,
                             type: _el.code, 

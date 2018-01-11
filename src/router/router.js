@@ -21,25 +21,40 @@ function Login(){
     { loadBannerShow, loadHotShow, loadRecommendShow, categoryShow, loadListShow, cityShow }
 )
 class AppRoute extends React.Component{  
-    componentDidMount(){        
-        this.props.loadBannerShow();        
-        this.props.loadHotShow();        
-        this.props.loadRecommendShow();        
-        this.props.categoryShow(config.categoryList[0]);    
+    componentDidMount(){ 
+       this.initPage()         
+    }   
+    initPage(){
+        let city = {};
         if(LocalStorage.get('city')){
-            const city = JSON.parse(LocalStorage.get('city'));
+            city = JSON.parse(LocalStorage.get('city'));
             this.props.cityShow(city); 
+        }else{
+            city = this.props.show.city;
         }
+        //banner
+        this.props.loadBannerShow({
+            siteCityOID: city.cityOID,
+        });     
+        //热门演出   
+        this.props.loadHotShow({
+            siteCityOID: city.cityOID,
+        });   
+        //推荐演出     
+        this.props.loadRecommendShow({
+            siteCityOID: city.cityOID,
+        });        
+        this.props.categoryShow(config.categoryList[0]); 
         this.props.loadListShow({
             src: 'm_web',
-            siteCityOID: '1001',
+            siteCityOID: city.cityOID,
             offset: 0,
             length: 10,
             sorting: 'weight',
             seq:'desc',
             client:'piaodashi_weixin'
-        },null,null);           
-    }   
+        },null,null);   
+    }
     render(){
         return(
             <BrowserRouter>

@@ -39,11 +39,8 @@ function bannerShow(data){
         payload: data
     } 
 }
-export function loadBannerShow(){
-    return (dispatch)=>{
-        const params = {
-           siteCityOID: '1001'
-        } 
+export function loadBannerShow(params){
+    return (dispatch)=>{        
         httpService.main.getCarouselBanner(params).then((res)=>{
             if(res.data.statusCode===200){
                 const list = res.data.result.data;
@@ -60,13 +57,10 @@ function hotShow(data){
         payload: data
     } 
 }
-export function loadHotShow(){
+export function loadHotShow(params){
     return (dispatch)=>{
-        const params = {
-            src: 'weixin',
-            siteCityOID: '1001'
-        } 
-        httpService.main.getMarketingShows(params).then((res)=>{
+        const { offset=0, length=10, siteCityOID='1001', src='weixin'} = params;
+        httpService.main.getMarketingShows({offset, length, siteCityOID, src }).then((res)=>{
             if(res.data.statusCode===200){
                 const data = res.data.result.data;
                 const recentShows = data.recentShows;
@@ -83,15 +77,10 @@ function recommendShow(data){
         payload: data
     } 
 }
-export function loadRecommendShow(){
+export function loadRecommendShow(params){
     return (dispatch)=>{
-        const params = {
-            src: 'weixin',
-            siteCityOID: '1001',
-            offset: 0,
-            length: 10
-        } 
-        httpService.main.getRecommendShows(params).then((res)=>{
+        const { offset=0, length=10, siteCityOID='1001', src='weixin'} = params;       
+        httpService.main.getRecommendShows({offset, length, siteCityOID, src }).then((res)=>{
             if(res.data.statusCode===200){
                 const recommendShows = res.data.result.data;
                 dispatch(recommendShow(recommendShows))               
