@@ -59,9 +59,7 @@ class List extends React.Component{
                         });                                 
                     }}
                 />                
-                <ListShow 
-                    ref={(_el)=>{this.listShow = _el}}
-                />                
+                <ListShow />                
             </div>
         )
     }   

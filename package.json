@@ -56,7 +56,8 @@
   "scripts": {
     "start": "node scripts/start.js",
     "build": "node scripts/build.js",
-    "test": "node scripts/test.js --env=jsdom"
+    "test": "node scripts/test.js --env=jsdom",
+    "server": "nodemon ./server/bin/www"
   },
   "jest": {
     "collectCoverageFrom": [
@@ -128,6 +129,13 @@
       "changeOrigin": true,
       "pathRewrite": {
         "/api": ""
+      }
+    },
+    "/ticketapi/": {
+      "target": "http://127.0.0.1:3002/",
+      "changeOrigin": true,
+      "pathRewrite": {
+        "/ticketapi": ""
       }
     }
   }

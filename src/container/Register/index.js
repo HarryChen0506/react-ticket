@@ -1,6 +1,6 @@
 // 登陆页面
 import React from 'react'
-import { NavBar, List, InputItem, Button, Icon, Radio } from 'antd-mobile'
+import { NavBar,  InputItem,  Icon,  Toast } from 'antd-mobile'
 import './register.scss'
 import { connect } from 'react-redux'
 import { categoryShow, loadListShow } from 'redux_module/redux/show.redux.js';
@@ -14,7 +14,7 @@ class Register extends React.Component{
         this.state = {
             user: '',
             pwd: '',
-            rpwd: '',
+            repeatPwd: '',
             isService: false
         }  
     }   
@@ -29,6 +29,19 @@ class Register extends React.Component{
             isService: !this.state.isService
         })
     }
+    register(){ 
+        if(this.state.user===''){
+            Toast.info('用户名不能为空!',1);
+            return 
+        }else if(this.state.pwd===''){
+            Toast.info('密码不能为空!',1);
+            return 
+        }else if(this.state.repeatPwd!==this.state.pwd){
+            Toast.info('重复密码不正确!',1);
+            return 
+        }
+        console.log('注册',this.state)
+    }
     render(){ 
          return (
             <div className="register-page">
@@ -39,7 +52,10 @@ class Register extends React.Component{
                 ><div style={{color: '#494949', fontSize: '1.6rem'}}>注册</div></NavBar>    
                 <div className="register-main">      
                      <div className="hide" onClick={()=>{this.changeService()}}>
-                        <span className="text">客服</span> 
+                        <div>
+                            <span className="text">客服</span> 
+                        </div>    
+                        
                         <div className="icon">                           
                             {this.state.isService?<Icon type="check" color="#108ee9"/>:null}                                                       
                         </div>                                         
@@ -74,12 +90,12 @@ class Register extends React.Component{
                                     type="password"
                                     placeholder="****"
                                     clear
-                                    onChange={(v)=>{this.handleChange.bind(this)('rpwd',v)}}
+                                    onChange={(v)=>{this.handleChange.bind(this)('repeatPwd',v)}}
                                 >重复密码</InputItem> 
                             </div>           
                      </div>
                      <div className="login-btn-wrapper"> 
-                         <div className="login-btn" ng-click="login.login()">注册</div> 
+                         <div className="login-btn" onClick={()=>this.register()}>注册</div> 
                      </div>
                      <div className="login-tip" onClick={()=>this.props.history.push('/login')}>
                          <span>* 点此可进行登录</span> 

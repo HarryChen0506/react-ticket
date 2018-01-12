@@ -99,7 +99,7 @@ const user = {
         return http.httpGet(url)
     },
     register: function(data){
-        const api = '/api/user/register';
+        const api = '/ticketapi/user/register';
         const url = getUrl(api);
         return http.httpPost(url,data)
     },
