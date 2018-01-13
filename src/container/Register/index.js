@@ -3,10 +3,10 @@ import React from 'react'
 import { NavBar,  InputItem,  Icon,  Toast } from 'antd-mobile'
 import './register.scss'
 import { connect } from 'react-redux'
-import { categoryShow, loadListShow } from 'redux_module/redux/show.redux.js';
+import { register } from 'redux_module/redux/user.redux.js';
 @connect(
     state=>state,
-    { categoryShow, loadListShow }
+    { register}
 )
 class Register extends React.Component{
     constructor(...args){
@@ -15,6 +15,7 @@ class Register extends React.Component{
             user: '',
             pwd: '',
             repeatPwd: '',
+            type: 'customer',
             isService: false
         }  
     }   
@@ -22,11 +23,14 @@ class Register extends React.Component{
         this.setState({
             [key]: v
         })
-        console.log(this.state)
     } 
     changeService(){
         this.setState({
             isService: !this.state.isService
+        },()=>{           
+            this.setState({
+                type: this.state.isService===true?'service':'customer'
+            })
         })
     }
     register(){ 
@@ -41,6 +45,8 @@ class Register extends React.Component{
             return 
         }
         console.log('注册',this.state)
+        let {user, pwd, type} = this.state;
+        this.props.register({user, pwd, type});
     }
     render(){ 
          return (

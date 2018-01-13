@@ -1,6 +1,7 @@
 // 路由
 import React from 'react';
 import { BrowserRouter, Route, Switch} from 'react-router-dom';
+import AuthRoute from 'component/AuthRoute'
 import Dashboard from 'container/Dashboard';
 import Show from 'container/Show';
 import City from 'container/City';
@@ -61,6 +62,7 @@ class AppRoute extends React.Component{
         return(
             <BrowserRouter>
                 <div className="router">   
+                    <AuthRoute />   
                     <Switch>   
                         <Route path="/login" component={Login} />
                         <Route path="/Register" component={Register} />

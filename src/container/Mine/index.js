@@ -1,19 +1,21 @@
 // 个人中心页面
 import React from 'react'
-import { NavBar, Icon, Button,  WingBlank } from 'antd-mobile'
+import { NavBar, Icon, Button,  WingBlank, Modal  } from 'antd-mobile'
 import Profile from './subPages/Profile'
 import MyOrder from './subPages/MyOrder'
 import OrderCategory from 'component/OrderCategory'
 import { MyList, MyItem } from 'component/common/MyList'
+import AuthRedirect from 'component/AuthRedirect'
+import httpService from 'http_service/service.js';
 
 
 import config from 'config'
 import './mine.scss'
 import { connect } from 'react-redux'
-import { categoryShow, loadListShow } from 'redux_module/redux/show.redux.js';
+import { logout } from 'redux_module/redux/user.redux.js';
 @connect(
     state=>state,
-    { categoryShow, loadListShow }
+    { logout }
 )
 class Mine extends React.Component{
     constructor(...args){
@@ -21,19 +23,43 @@ class Mine extends React.Component{
         this.state = {
            orderCategoryList: config.orderCategoryList 
         }
-    }    
-    render(){ 
+    }  
+    logout(){
+        const alert = Modal.alert;
+        alert('注销', '您确定退出登录吗?', [
+            { text: '取消', onPress: () => console.log('cancel') },
+            { text: '确定', onPress: () => {
+                // BrowserCookie.erase('userId');
+               this.clearCookie.bind(this)();
+            } },
+        ])
+    }
+    clearCookie(){
+        httpService.user.logout().then((res)=>{
+            if(res.data.code===200){
+                this.props.logout();
+                this.props.history.push('/')
+            }            
+        },(err)=>{
+            console.log(err)
+        })
+    }  
+    render(){          
+         const { user, _id } = this.props.user; 
+         const auth = (_id===''||_id===undefined||_id===null)?false:true;
+         console.log('auth',auth)
          return (
             <div className="mine-page">
+                <AuthRedirect auth={auth} backPath={'/mine'} loginPath={'/login'}/>    
                 <NavBar
                     mode="light"
                     icon={<Icon type="left" color="#bbb"/>}
-                    onLeftClick={() => console.log('onLeftClick')}
+                    onLeftClick={() => this.props.history.goBack()}
                 ><div style={{color: '#494949', fontSize: '1.6rem'}}>个人中心</div></NavBar>    
                 <div className="mine-main">
                     <Profile
                         style={{marginTop: '10px'}}
-                        content={'13512341234'}
+                        content={user}
                         thumb={''}
                         onClick={()=>{console.log(123)}}
                     />
@@ -100,6 +126,7 @@ class Mine extends React.Component{
                                 fontSize: '1.3rem',
                                 backgroundImage: 'linear-gradient(to bottom,#ef6856,#ff5a57)'
                             }}
+                            onClick={this.logout.bind(this)}
                         >退出登录</Button>
                     </WingBlank>
                     

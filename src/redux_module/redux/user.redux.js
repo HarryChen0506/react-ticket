@@ -1,5 +1,4 @@
 import httpService from 'http_service/service.js';
-import { getRedirectToPath } from 'utils/tool.js';
 
 //定义变量
 
@@ -8,6 +7,7 @@ const ERROR_MSG_CLEAR = 'ERROR_MSG_CLEAR';
 const LOAD_DATA = 'LOAD_DATA'; //加载用户数据
 const AUTH_SUCCESS = 'AUTH_SUCCESS';  //鉴权成功（登录，注册，更新）
 const LOGOUT = 'LOGOUT';
+const BACK_PATH = 'BACK_PATH'; //鉴权成功后的回退路径
 
 function authSuccess(data){
     let {pwd, ...filterData} = data
@@ -81,25 +81,33 @@ export function logout(){
         type: LOGOUT
     }
 }
+export function loadBackPath(data){
+    return {
+        type: BACK_PATH,
+        payload: data
+    }
+}
 const initState = {
     user: '',
     pwd: '',
     type: '',
     msg: '',
-    redirectTo: ''
+    backPath: '/'
 }
 export function user(state = initState, action){
     switch(action.type){
         case AUTH_SUCCESS:
-            return {...state, ...action.payload, msg:'', redirectTo: getRedirectToPath(action.payload)}
+            return {...state, ...action.payload, msg:''}
         case ERROR_MSG:
             return {...state, ...action.payload} 
         case ERROR_MSG_CLEAR:
             return {...state, ...action.payload, msg:''}       
         case LOAD_DATA:
-            return {...state, ...action.payload, redirectTo: getRedirectToPath(action.payload)}
+            return {...state, ...action.payload}
         case LOGOUT:
             return {...initState}
+        case BACK_PATH:
+            return {...state, backPath: action.payload}
         default:
             return state
     }

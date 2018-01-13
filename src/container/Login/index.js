@@ -1,12 +1,13 @@
 // 登陆页面
 import React from 'react'
-import { NavBar, List, InputItem, Button, Icon } from 'antd-mobile'
+import { withRouter, Redirect } from 'react-router-dom';
+import { NavBar, List, InputItem, Button, Icon, Toast, NoticeBar } from 'antd-mobile'
 import './login.scss'
 import { connect } from 'react-redux'
-import { categoryShow, loadListShow } from 'redux_module/redux/show.redux.js';
+import { login, errMsgClear } from 'redux_module/redux/user.redux.js';
 @connect(
     state=>state,
-    { categoryShow, loadListShow }
+    { login, errMsgClear }
 )
 class Login extends React.Component{
     constructor(...args){
@@ -22,9 +23,38 @@ class Login extends React.Component{
         })
         console.log(this.state)
     } 
+    login(){
+        // console.log('登录',this.state)
+        let {user, pwd} = this.state;
+        if(user===''){
+            Toast.info('用户名不能为空!',1);
+            return 
+        }else if(pwd===''){
+            Toast.info('密码不能为空!',1);
+            return 
+        }
+        this.props.login({user, pwd},()=>{
+            //成功的回调
+            console.log('成功的回调')
+        },()=>{
+            //失败的回调
+            console.log('失败的回调')
+            this.pwdInput.clearInput();
+        })
+    }
+    register(){ 
+        this.props.errMsgClear();
+        this.props.history.push('/register')
+    }
     render(){ 
+         const { user, _id, backPath } = this.props.user; 
+         const auth = (_id===''||_id===undefined||_id===null)?false:true;
+
          return (
             <div className="login-page">
+                <div>
+                    {auth?<Redirect to={backPath} />:null}
+                </div>     
                 <NavBar
                     mode="light"
                     icon={<Icon type="left" color="#bbb"/>}
@@ -57,12 +87,16 @@ class Login extends React.Component{
                                 >密码</InputItem> 
                             </div>           
                      </div>
-                     <div className="login-btn-wrapper"> 
-                         <div className="login-btn" ng-click="login.login()">登录</div> 
+                     <div style={{paddingLeft: '20px'}}>
+                            {this.props.user.msg?<NoticeBar mode="" icon={null}>{this.props.user.msg}</NoticeBar>:null} 
                      </div>
-                     <div className="login-tip" onClick={()=>this.props.history.push('/register')}>
+                     <div className="login-btn-wrapper"> 
+                         <div className="login-btn" onClick={this.login.bind(this)}>登录</div> 
+                     </div>
+                     <div className="login-tip" onClick={this.register.bind(this)}>
                          <span>* 如果没有账号， 请点此进行注册</span> 
                      </div>
+                          
                 </div>
             </div>
         )

@@ -89,7 +89,7 @@ const main = {
 }
 const user = {
     info: function(params){
-        const api = '/api/user'
+        const api = '/ticketapi/user'
         const url = getUrl(api, params)
         return http.httpGet(url)
     },
@@ -104,12 +104,12 @@ const user = {
         return http.httpPost(url,data)
     },
     login: function(data){
-        const api = '/api/user/login';
+        const api = '/ticketapi/user/login';
         const url = getUrl(api);
         return http.httpPost(url,data)
     },
     logout: function(){
-        const api = '/api/user/logout';
+        const api = '/ticketapi/user/logout';
         const url = getUrl(api);
         return http.httpGet(url)
     },

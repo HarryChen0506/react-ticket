@@ -14,24 +14,24 @@ function handle4err(err,res){
 router.get('/', function(req, res, next) {
     //获取cookie
     let { userId } = req.cookies;
-    // users.findOne({_id:userId},(err, doc)=>{
-    //     if(err){
-    //         handle4err(err,res);
-    //         return
-    //     }
-    //     if(doc){
-    //         res.json({
-    //           code:200,
-    //           msg: '用户id正确',
-    //           result: doc
-    //         })
-    //     }else{
-    //         res.json({
-    //           code:210,
-    //           msg: '无该用户id'
-    //         })
-    //     }
-    // })         
+    users.findOne({_id:userId},(err, doc)=>{
+        if(err){
+            handle4err(err,res);
+            return
+        }
+        if(doc){
+            res.json({
+              code:200,
+              msg: '用户id正确',
+              result: doc
+            })
+        }else{
+            res.json({
+              code:210,
+              msg: '无该用户id'
+            })
+        }
+    })         
 
 });
 
