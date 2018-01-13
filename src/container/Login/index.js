@@ -1,7 +1,7 @@
 // 登陆页面
 import React from 'react'
-import { withRouter, Redirect } from 'react-router-dom';
-import { NavBar, List, InputItem, Button, Icon, Toast, NoticeBar } from 'antd-mobile'
+import { Redirect } from 'react-router-dom';
+import { NavBar, InputItem, Icon, Toast, NoticeBar } from 'antd-mobile'
 import './login.scss'
 import { connect } from 'react-redux'
 import { login, errMsgClear } from 'redux_module/redux/user.redux.js';
@@ -46,7 +46,7 @@ class Login extends React.Component{
         this.props.history.push('/register')
     }
     render(){ 
-         const { user, _id, backPath } = this.props.user; 
+         const { _id, backPath } = this.props.user; 
          const auth = (_id===''||_id===undefined||_id===null)?false:true;
 
          return (
@@ -62,7 +62,7 @@ class Login extends React.Component{
                 <div className="login-main">                 
                     <div className="logo-bg"> 
                         <div className="logo-container">
-                             <img width="100%" src={`${require('./images/login-logo.png')}`} />
+                             <img width="100%" alt="logo" src={`${require('./images/login-logo.png')}`} />
                         </div>
                        
                      </div>

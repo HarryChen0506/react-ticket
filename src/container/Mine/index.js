@@ -47,7 +47,6 @@ class Mine extends React.Component{
     render(){          
          const { user, _id } = this.props.user; 
          const auth = (_id===''||_id===undefined||_id===null)?false:true;
-         console.log('auth',auth)
          return (
             <div className="mine-page">
                 <AuthRedirect auth={auth} backPath={'/mine'} loginPath={'/login'}/>    

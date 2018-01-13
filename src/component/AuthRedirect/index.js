@@ -17,7 +17,7 @@ class AuthRedirect extends React.Component{
         }  
     }    
     componentWillMount(){
-        const { auth=false, backPath='/', loginPath='/login' } = this.props;
+        const { auth=false, backPath='/' } = this.props;
         if(!auth){
             this.props.loadBackPath(backPath)
             this.setState({
@@ -26,7 +26,7 @@ class AuthRedirect extends React.Component{
         }
     } 
     render(){
-        const { auth=false, backPath='/', loginPath='/login' } = this.props;
+        const { loginPath='/login' } = this.props;
         return (
             <div>
                 {this.state.toRedirect?<Redirect to={loginPath} />:null}

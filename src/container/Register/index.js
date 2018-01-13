@@ -1,6 +1,6 @@
 // 登陆页面
 import React from 'react'
-import { withRouter, Redirect } from 'react-router-dom';
+import { Redirect } from 'react-router-dom';
 import { NavBar,  InputItem,  Icon,  Toast } from 'antd-mobile'
 import './register.scss'
 import { connect } from 'react-redux'
@@ -50,7 +50,7 @@ class Register extends React.Component{
         this.props.register({user, pwd, type});
     }
     render(){ 
-         const { user, _id, backPath } = this.props.user; 
+         const { _id, backPath } = this.props.user; 
          const auth = (_id===''||_id===undefined||_id===null)?false:true;
          return (
             <div className="register-page">
@@ -74,7 +74,7 @@ class Register extends React.Component{
                     </div>     
                     <div className="logo-bg"> 
                         <div className="logo-container">
-                             <img width="100%" src={`${require('./images/login-logo.png')}`} />
+                             <img width="100%" alt="logo" src={`${require('./images/login-logo.png')}`} />
                         </div>                       
                      </div>
                      <div className="login-input">                        

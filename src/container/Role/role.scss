@@ -1,0 +1,22 @@
+.role-page {
+    .role-main {
+        padding-top: 2rem;
+        .am-list-body {
+            border-radius: 3px;
+            overflow: hidden;
+        }
+        .profile-list {
+            .am-list-thumb {
+                img {
+                    width: 3.5rem;
+                    height: 3.5rem;
+                }
+            }
+            .profile-content {
+                color: #494949;
+                font-size: 1.4rem;
+            }
+        } 
+        
+    }
+}

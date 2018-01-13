@@ -7,6 +7,7 @@ import './dashboard.scss'
 import Main from 'container/Main'
 import List from 'container/List'
 import Mine from 'container/Mine'
+import Role from 'container/Role'
 // function List(){
 //     return <div>演出列表页</div>
 // }
@@ -31,6 +32,12 @@ class Dashboard extends React.Component{
             icon: 'list',
             title: '演出列表',
             component: List
+        },{
+            path: '/role',
+            text: '客服',
+            icon: 'role',
+            title: '客服',
+            component: Role
         },{
             path: '/mine',
             text: '我的',
