@@ -21,7 +21,6 @@ class Login extends React.Component{
         this.setState({
             [key]: v
         })
-        console.log(this.state)
     } 
     login(){
         // console.log('登录',this.state)
@@ -81,7 +80,7 @@ class Login extends React.Component{
                                  <InputItem   
                                     ref={(v)=>{this.pwdInput = v}}                     
                                     type="password"
-                                    placeholder="****"
+                                    placeholder="***"
                                     clear
                                     onChange={(v)=>{this.handleChange.bind(this)('pwd',v)}}
                                 >密码</InputItem> 

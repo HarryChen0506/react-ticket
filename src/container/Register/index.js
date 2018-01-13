@@ -1,5 +1,6 @@
 // 登陆页面
 import React from 'react'
+import { withRouter, Redirect } from 'react-router-dom';
 import { NavBar,  InputItem,  Icon,  Toast } from 'antd-mobile'
 import './register.scss'
 import { connect } from 'react-redux'
@@ -44,13 +45,18 @@ class Register extends React.Component{
             Toast.info('重复密码不正确!',1);
             return 
         }
-        console.log('注册',this.state)
+        // console.log('注册',this.state)
         let {user, pwd, type} = this.state;
         this.props.register({user, pwd, type});
     }
     render(){ 
+         const { user, _id, backPath } = this.props.user; 
+         const auth = (_id===''||_id===undefined||_id===null)?false:true;
          return (
             <div className="register-page">
+                <div>
+                    {auth?<Redirect to={backPath} />:null}
+                </div>  
                 <NavBar
                     mode="light"
                     icon={<Icon type="left" color="#bbb"/>}
@@ -85,7 +91,7 @@ class Register extends React.Component{
                                  <InputItem   
                                     ref={(v)=>{this.pwdInput = v}}                     
                                     type="password"
-                                    placeholder="****"
+                                    placeholder="***"
                                     clear
                                     onChange={(v)=>{this.handleChange.bind(this)('pwd',v)}}
                                 >密码</InputItem> 
@@ -94,7 +100,7 @@ class Register extends React.Component{
                                  <InputItem   
                                     ref={(v)=>{this.pwdInput = v}}                     
                                     type="password"
-                                    placeholder="****"
+                                    placeholder="***"
                                     clear
                                     onChange={(v)=>{this.handleChange.bind(this)('repeatPwd',v)}}
                                 >重复密码</InputItem> 
