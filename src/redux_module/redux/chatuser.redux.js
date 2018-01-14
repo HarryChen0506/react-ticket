@@ -19,7 +19,7 @@ export function getUserList(type){
         httpService.user.list({type}).then((res)=>{
             dispatch(userList(res.data))
         },(err)=>{
-            dispatch(errorMsg({msg: err}))
+            dispatch(errorMsg({msg: '服务器出错'}))
         })
     }
 }

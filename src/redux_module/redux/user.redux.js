@@ -32,7 +32,7 @@ export function register(postData){
                 dispatch(errorMsg({msg:res.data.msg}))
             }
         },(err)=>{
-            dispatch(errorMsg({msg:err}))
+            dispatch(errorMsg({msg:'服务器出错'}))
         })
     }
 }
@@ -57,7 +57,7 @@ export function update(postData){
                 dispatch(errorMsg({msg:res.data.msg}))
             }
         },(err)=>{
-            dispatch(errorMsg({msg:err}))
+            dispatch(errorMsg({msg:'服务器出错'}))
         })
     }
 }
@@ -72,7 +72,7 @@ export function login(postData, success_cb, fail_cb){
                 fail_cb && fail_cb();
             }
         },(err)=>{
-            dispatch(errorMsg({msg:err}))
+            dispatch(errorMsg({msg:'服务器出错'}))
         })
     }
 }

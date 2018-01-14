@@ -114,17 +114,17 @@ const user = {
         return http.httpGet(url)
     },
     update: function(data){
-        const api = '/api/user/update';
+        const api = '/ticketapi/user/update';
         const url = getUrl(api);
         return http.httpPost(url,data)
     },
     chatlist: function(params){
-        const api = '/api/user/chatlist'
+        const api = '/ticketapi/user/chatlist'
         const url = getUrl(api, params)
         return http.httpGet(url)
     },
     readMsg: function(data){
-        const api = '/api/user/readmsg'
+        const api = '/ticketapi/user/readmsg'
         const url = getUrl(api);
         return http.httpPost(url,data)
     }

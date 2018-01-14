@@ -24,6 +24,10 @@ var server = http.createServer(app);
 /**
  * Listen on provided port, on all network interfaces.
  */
+//引入socket.io 
+var io = app.io;
+//io.attach 是将io的实例和server绑定起来
+io.attach(server);
 
 server.listen(port);
 server.on('error', onError);

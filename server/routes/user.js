@@ -2,6 +2,7 @@ var express = require('express');
 var router = express.Router();
 
 let users = require('../models/user.js');
+let chats = require('../models/chat.js');
 
 function handle4err(err,res){   
     res.json({
@@ -187,13 +188,53 @@ router.get('/remove', function(req, res, next){
         res.json(doc)
     })
 })
-
-    // chats.remove({},(err,doc)=>{      
-    //     if(err){
-    //         handle4err(err,res);
-    //         return
-    //     }
-    // })
+//获取聊天信息
+router.get('/chatlist', function(req, res, next){
+    const userId = req.cookies.userId;
+    // let param = {};
+    // if(type!==undefined && type!==null){
+    //     param = {type}
+    // } 
+    users.find({},(err,userDoc)=>{
+        if(err){
+            handle4err(err,res);
+            return
+        }  
+        let userList = {};
+        // Array.forEach(userDoc,(val, index)=>{
+        //     userList[val._id] = {
+        //         name: val.user,
+        //         type: val.type
+        //     }
+        // })
+        for(var i=0; i<userDoc.length; i++){
+            var user =  userDoc[i];
+            userList[user._id]= {
+                name: user.user,
+                type: user.type
+            }
+        }
+        chats.find({'$or':[{'from':userId},{'to': userId}]},(err,doc)=>{
+            if(err){
+                handle4err(err,res);
+                return
+            }  
+            if(!doc){
+                res.json({
+                    code:210,
+                    msg: '获取聊天列表失败'
+                })
+            }
+            res.json({
+                code:200,
+                msg: '成功',
+                result: doc,
+                users: userList
+            })
+        })
+    })
+    
+})
 
 
 

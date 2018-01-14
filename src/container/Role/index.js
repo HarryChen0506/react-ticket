@@ -17,9 +17,11 @@ class Role extends React.Component{
         super(...args); 
     }
     componentDidMount(){
-        const { type  } = this.props.user;         
-        const roleName = type==='customer'?'service':'customer';
-        this.props.getUserList&&this.props.getUserList(roleName);
+        const { type  } = this.props.user;
+        if(type){
+            const roleName = type==='customer'?'service':'customer';
+            this.props.getUserList&&this.props.getUserList(roleName);
+        }
     }
     render(){          
          const { user, _id, type  } = this.props.user; 

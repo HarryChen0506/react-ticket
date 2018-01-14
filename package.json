@@ -137,6 +137,6 @@
       "pathRewrite": {
         "/ticketapi": ""
       }
-    }
+    }    
   }
 }

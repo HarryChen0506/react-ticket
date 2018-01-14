@@ -24,7 +24,7 @@ class UserCard extends React.Component{
                                 multipleLine
                                 platform="android"
                                 onClick={() => {
-                                    typeof this.props.onClick==='function'&&this.props.onClick()
+                                    this.props.history.push(`/chat/${v._id}`)
                                 }}
                             >
                                 <div className="profile-content">{v.user}</div>
@@ -41,5 +41,3 @@ UserCard.propTypes = {
     dataList: PropTypes.array    
 }
 export default UserCard;
-
-// thumb= {require(`static/img/avatar/${v.avatar||'zebra'}.png`)}
