@@ -2,6 +2,7 @@
 import React from 'react';
 // import io from 'socket.io-client';
 import { List, NavBar, Icon, Toast,TextareaItem } from 'antd-mobile';
+import AuthRedirect from 'component/AuthRedirect'
 import Emoji from 'component/Emoji';
 import { tool } from 'utils/tool.js';
 import './chat.scss';
@@ -40,7 +41,7 @@ class Chat extends React.Component {
         //计算头像
         const avatar_customer = require(`./images/customer.png`) 
         const avatar_service = require(`./images/service.png`) 
-        if(users[id].type==='customer'){
+        if(users&& users[id] && users[id].type==='customer'){
             return avatar_customer
         }else {
             return avatar_service
@@ -112,16 +113,20 @@ class Chat extends React.Component {
         const myId = this.props.user._id; 
         const msg = this.props.chat.chatMsg.filter(v=>v.chatId===tool.getChatId(myId,userId));      
         // console.log(userId, users, myId, msg)
-        if(!users||!users[userId]){
+        const { user, _id, type  } = this.props.user; 
+        const auth = (_id===''||_id===undefined||_id===null)?false:true;
+        //判断是否登录
+        if((!users||!users[userId])&&auth){
             return null
         }        
         return (  
-            <div className="chat-page">               
+            <div className="chat-page">    
+                <AuthRedirect auth={auth} backPath={'/role'} loginPath={'/login'}/>           
                 <NavBar
                     mode="light"
                     icon={<Icon type="left" color="#bbb"/>}
                     onLeftClick={() => this.props.history.goBack()}
-                ><div style={{color: '#494949', fontSize: '1.6rem'}}>{'roleName'}</div></NavBar>    
+                ><div style={{color: '#494949', fontSize: '1.6rem'}}>{users[userId]&&users[userId].name}</div></NavBar>    
                 <div className="chat-main" id="chat-main">
                     {msg.map((v,index)=>(
                        this.showMsg(userId,myId,v, users)

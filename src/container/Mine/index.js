@@ -1,6 +1,6 @@
 // 个人中心页面
 import React from 'react'
-import { NavBar, Icon, Button,  WingBlank, Modal  } from 'antd-mobile'
+import { NavBar, Icon, Button,  WingBlank, Modal, Toast  } from 'antd-mobile'
 import Profile from './subPages/Profile'
 import MyOrder from './subPages/MyOrder'
 import OrderCategory from 'component/OrderCategory'
@@ -60,18 +60,18 @@ class Mine extends React.Component{
                         style={{marginTop: '10px'}}
                         content={user}
                         thumb={''}
-                        onClick={()=>{console.log(123)}}
+                        onClick={()=>{Toast.info('演示项目暂不支持更改个人信息', 2)}}
                     />
                     <MyOrder
                         style={{marginTop: '10px'}}
                         content={"我的订单"}
                         extra={'查看所有订单'}
-                        onClick={()=>{console.log('查看所有订单')}}
+                        onClick={()=>{Toast.info('演示项目暂不支持查看所有订单', 2)}}
                         onPress={(_el)=>{console.log(_el)}}
                     >
                         <OrderCategory                         
                             categoryList = {this.state.orderCategoryList}
-                            onPress={(_el)=>{console.log(_el)}}
+                            onPress={(_el)=>{Toast.info('演示项目暂不支持查看订单', 2)}}
                         />  
                     </MyOrder>
                     <MyList style={{marginTop: '10px'}}>
@@ -80,7 +80,7 @@ class Mine extends React.Component{
                             arrow="horizontal"
                             multipleLine
                             platform="android"
-                            onClick={() => {}}
+                            onClick={() => {Toast.info('演示项目暂不支持设置地址', 2)}}
                         >
                             <div className="content">{config.mineCategory.address.text}</div>
                         </MyItem>
@@ -89,7 +89,7 @@ class Mine extends React.Component{
                             arrow="horizontal"
                             multipleLine
                             platform="android"
-                            onClick={() => {}}
+                            onClick={() => {Toast.info('演示项目暂不支持查看优惠券', 2)}}
                         >
                             <div className="content">{config.mineCategory.coupon.text}</div>
                         </MyItem>
@@ -100,7 +100,7 @@ class Mine extends React.Component{
                             arrow="horizontal"
                             multipleLine
                             platform="android"
-                            onClick={() => {}}
+                            onClick={() => {this.props.history.push('/role')}}
                         >
                             <div className="content">{config.mineCategory.online.text}</div>
                         </MyItem>
