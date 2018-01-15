@@ -1,15 +1,22 @@
 
 演示地址[点击](http://106.15.198.124:8083/)
-## Available Scripts
+### 前端初始化
+```
+ //启动前端
+ cd /
+ $ npm install
+ $ npm run start
 
-In the project directory, you can run:
+ //build
+ $ npm run build
+```
+### 后端初始化
+```
+ //启动后端 (注意，要先安装mongodb数据库以及启动数据库)
+ $ cd server
+ $ npm install
+ $ npm run server
+```
 
-### `npm start`
 
-Runs the app in the development mode.<br>
-Open [http://localhost:9080](http://localhost:9080) to view it in the browser.
-
-### `npm test`
-
-### `npm run build`
 
