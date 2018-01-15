@@ -17,7 +17,7 @@
  $ npm install
  $ npm run server
 ```
-![image](https://github.com/HarryChen0506/react-ticket/demo/react-ticket.gif)
+![image](https://github.com/HarryChen0506/react-ticket/blob/master/demo/react-ticket.gif)
 
 
 
