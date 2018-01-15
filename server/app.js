@@ -11,6 +11,7 @@ var io = socket_io();
 var index = require('./routes/index');
 var user = require('./routes/user');
 var show = require('./routes/show');
+var demo = require('./routes/demo');
 
 var app = express();
 let chats = require('./models/chat.js');
@@ -66,6 +67,7 @@ mongoose.connection.on('disconnected', function (){
 app.use('/', index);
 app.use('/user', user);
 app.use('/show', show);
+app.use('/demo', demo);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
